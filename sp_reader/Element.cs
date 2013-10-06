@@ -17,6 +17,7 @@ namespace SPInterface
         public readonly string fileActPoints;
         public CurvePara paras;
         public readonly double length;
+        public readonly double width;
         List<NomPoint> nomPoints;
         List<ActPoint> actPoints;
         List<ActPoint> actMaskedPoints;
@@ -60,7 +61,51 @@ namespace SPInterface
             identifier = node.Attributes["Identifier"].Value;
 
             //construct for type cylinder & circle
-            if (geoType.Equals("Cylinder", StringComparison.CurrentCultureIgnoreCase) )
+            if (geoType.Equals("Plane", StringComparison.CurrentCultureIgnoreCase))
+            {
+                pos = new double[3];
+                vec = new double[3];
+                {
+                    string buf = node.Attributes["Position"].Value;
+                    string[] spli_str = buf.Split(' ');
+                    for (int i = 0; i < 3; ++i)
+                    {
+                        pos[i] = Convert.ToDouble(spli_str[i]);
+                    }
+                }
+                {
+                    string buf = node.Attributes["Vector"].Value;
+                    string[] spli_str = buf.Split(' ');
+                    for (int i = 0; i < 3; ++i)
+                    {
+                        vec[i] = Convert.ToDouble(spli_str[i]);
+                    }
+                }
+                length = Convert.ToDouble(node.Attributes["Length"].Value);
+                width = Convert.ToDouble(node.Attributes["Width"].Value);
+              
+                FileInfo meas_fi = new FileInfo(node.Attributes["Points"].Value);
+                fileMeasPoints = meas_fi.FullName;
+                StreamReader meas_sr = new StreamReader(fileMeasPoints);
+                string line;
+                measPoints = new List<MeasPoint>();
+                int seq_nr = 1;
+                while ((line = meas_sr.ReadLine()) != null)
+                {
+                    MeasPoint temp_Meas_point = new MeasPoint(line, false);
+                    if (temp_Meas_point.status == 0)
+                    {
+                        measPoints.Add(temp_Meas_point);
+                        measPoints.Last().seq = seq_nr++;
+                    }
+                    else
+                    {
+                        measMaskedPoints.Add(temp_Meas_point);
+                        measMaskedPoints.Last().seq = seq_nr++;
+                    }
+                }
+            } 
+            if (geoType.Equals("Cylinder", StringComparison.CurrentCultureIgnoreCase))
             {
                 pos = new double[3];
                 vec = new double[3];

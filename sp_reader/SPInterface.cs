@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-
+using System.IO;
 namespace SPInterface
 {
     public class SPI
@@ -13,8 +13,8 @@ namespace SPInterface
         public List<Element> elements;
         public readonly string CharacterName;
         public readonly Dictionary<string, string> sys_dict;
-
-
+        public XmlDocument xml_result;
+        string xmloutpath;
         public string getPathFromSpecialProgram()
         {
             return spiconf.pathFromSP;
@@ -71,7 +71,56 @@ namespace SPInterface
                 }
                 
             }
+            StreamWriter sw = new StreamWriter(spiconf.pathFromSP + @"\DataFromSpecialProgram.txt");
+            sw.WriteLine("ResultsFromSpecialProgram.xml");
+            sw.Close();
+
+            xmloutpath = spiconf.pathFromSP + @"\ResultsFromSpecialProgram.xml";
+
+            System.IO.File.Delete(xmloutpath);
+            xml_result = new XmlDocument();
+            XmlElement rootElement = xml_result.CreateElement("GeometryData");
+            xml_result.AppendChild(rootElement);
+            XmlElement spname = xml_result.CreateElement("Name");
+            spname.InnerText = CharacterName;
+            rootElement.AppendChild(spname);
+            result_save();
             
         }
+        public void result_save()
+        {
+            xml_result.Save(xmloutpath);
+        }
+        public void addresult(string groupid, string typesymbol, string identifier, double act)
+        {
+            XmlNode current_node = null;
+            XmlNode rootnode = xml_result.SelectSingleNode("GeometryData");
+            foreach (XmlNode xn in rootnode.ChildNodes)
+            {
+                
+                XmlNode gid = xn.SelectSingleNode("GroupId");
+                if (gid != null && gid.InnerText == groupid)
+                {
+                    current_node = xn;
+                    break;
+                }
+            }
+            if (current_node == null)
+            {
+                XmlElement new_ele = xml_result.CreateElement("Element");
+                rootnode.AppendChild(new_ele);
+                XmlElement name_ele = xml_result.CreateElement("GroupId");
+                name_ele.InnerText = groupid;
+                new_ele.AppendChild(name_ele);
+                current_node = rootnode.LastChild;
+            }
+            XmlElement item = xml_result.CreateElement("Line");
+            item.SetAttribute("TypeSymbol" ,typesymbol);
+            item.SetAttribute("Identifier", identifier);
+            item.SetAttribute("Actual", act.ToString("G4"));
+            current_node.AppendChild(item);
+
+        }
     }
+        
 }
