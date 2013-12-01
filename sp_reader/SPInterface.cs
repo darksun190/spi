@@ -23,7 +23,7 @@ namespace SPInterface
         {
             return spiconf.pathToSP;
         }
-        
+
         public SPI(string SPIconfpath)
         {
             spiconf = new SPIconf(SPIconfpath);
@@ -37,7 +37,7 @@ namespace SPInterface
             foreach (XmlNode node in xmlnodelist)
             {
                 string identify = node.Name;
-                if(identify.Equals("Name"))
+                if (identify.Equals("Name"))
                 {
                     CharacterName = node.InnerText;
                 }
@@ -57,7 +57,7 @@ namespace SPInterface
             XmlNodeList sysxmlnodelist = sysxmlnode.ChildNodes;
             foreach (XmlNode node in sysxmlnodelist)
             {
-                if(node.Name.Equals("ProtHeadData"))
+                if (node.Name.Equals("ProtHeadData"))
                 {
                     XmlAttributeCollection Xacollect = node.Attributes;
                     foreach (XmlAttribute att in Xacollect)
@@ -67,9 +67,9 @@ namespace SPInterface
                 }
                 else
                 {
-                    sys_dict.Add(node.Name,node.InnerText);
+                    sys_dict.Add(node.Name, node.InnerText);
                 }
-                
+
             }
             StreamWriter sw = new StreamWriter(spiconf.pathFromSP + @"\DataFromSpecialProgram.txt");
             sw.WriteLine("ResultsFromSpecialProgram.xml");
@@ -85,19 +85,20 @@ namespace SPInterface
             spname.InnerText = CharacterName;
             rootElement.AppendChild(spname);
             result_save();
-            
+
         }
         public void result_save()
         {
             xml_result.Save(xmloutpath);
         }
-        public void addresult(string groupid, string typesymbol, string identifier, double act)
+
+        public void addresult(string groupid, string typesymbol, string identifier, double act, string comment = "", double nom = 0, double ut = 0, double lt = 0)
         {
             XmlNode current_node = null;
             XmlNode rootnode = xml_result.SelectSingleNode("GeometryData");
             foreach (XmlNode xn in rootnode.ChildNodes)
             {
-                
+
                 XmlNode gid = xn.SelectSingleNode("GroupId");
                 if (gid != null && gid.InnerText == groupid)
                 {
@@ -115,12 +116,15 @@ namespace SPInterface
                 current_node = rootnode.LastChild;
             }
             XmlElement item = xml_result.CreateElement("Line");
-            item.SetAttribute("TypeSymbol" ,typesymbol);
+            item.SetAttribute("TypeName", typesymbol);
             item.SetAttribute("Identifier", identifier);
             item.SetAttribute("Actual", act.ToString("G4"));
+            item.SetAttribute("Nominal", nom.ToString("G4"));
+            item.SetAttribute("UpperTol", ut.ToString("G4"));
+            item.SetAttribute("LowerTol", lt.ToString("G4"));
+            item.SetAttribute("Comment", comment);
             current_node.AppendChild(item);
-
         }
     }
-        
+
 }
