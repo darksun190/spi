@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SpecialProgramInterface">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Zeiss\CALYPSO 5.4\sp_sample\bin\SpecialProgramInterface.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

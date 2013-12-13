@@ -19,7 +19,7 @@ namespace SPInterface
         new public readonly double radius;
         new public readonly bool isOutside;
         public readonly int size;
-        List<double> angle_commu;
+        public readonly List<double> angle_commu;
 
         public List<MeasPoint> transferedPoints;
         public double round_nr;
@@ -56,7 +56,7 @@ namespace SPInterface
              *
              *                  Keep the X axis in XOZ plane
              * |     n / sqrt ( 1-m^2 )     ,           0           ,  - l / sqrt( 1-m^2 )  |
-             * |    - n*l / sqrt ( 1-m^2 )  ,   sqrt ( 1-m^2 )      ,  - m*n / sqrt ( 1-m^2)|
+             * |    - m*l / sqrt ( 1-m^2 )  ,   sqrt ( 1-m^2 )      ,  - m*n / sqrt ( 1-m^2)|
              * |            l               ,           m           ,           n           |
              *
              *
@@ -64,14 +64,16 @@ namespace SPInterface
              */
 
             double l, m, n;
-            l = vec[0];
-            m = vec[1];
-            n = vec[2];
-
+            //l = vec[0];
+            //m = vec[1];
+            //n = vec[2];
+            l = 0;
+            m = 0;
+            n = 1;
             var matrix1 =
             new[,]{
                     { n / Math.Sqrt ( 1-m*m ),      0.0,                    -l / Math.Sqrt ( 1-m*m )    }, 
-                    { - n*l / Math.Sqrt ( 1-m*m ),  Math.Sqrt ( 1-m*m ),    - m*n / Math.Sqrt ( 1-m*m ) }, 
+                    { - m*l / Math.Sqrt ( 1-m*m ),  Math.Sqrt ( 1-m*m ),    - m*n / Math.Sqrt ( 1-m*m ) }, 
                     { l,                            m,                      n                           } 
                 };
             //start transform

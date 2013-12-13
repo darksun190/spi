@@ -52,7 +52,7 @@ namespace SPInterface
              *
              *                  Keep the X axis in XOZ plane
              * |     n / sqrt ( 1-m^2 )     ,           0           ,  - l / sqrt( 1-m^2 )  |
-             * |    - n*l / sqrt ( 1-m^2 )  ,   sqrt ( 1-m^2 )      ,  - m*n / sqrt ( 1-m^2)|
+             * |    - m*l / sqrt ( 1-m^2 )  ,   sqrt ( 1-m^2 )      ,  - m*n / sqrt ( 1-m^2)|
              * |            l               ,           m           ,           n           |
              *
              *
@@ -67,7 +67,7 @@ namespace SPInterface
             var matrix1 =
             new[,]{
                     { n / Math.Sqrt ( 1-m*m ),      0.0,                    -l / Math.Sqrt ( 1-m*m )    }, 
-                    { - n*l / Math.Sqrt ( 1-m*m ),  Math.Sqrt ( 1-m*m ),    - m*n / Math.Sqrt ( 1-m*m ) }, 
+                    { - m*l / Math.Sqrt ( 1-m*m ),  Math.Sqrt ( 1-m*m ),    - m*n / Math.Sqrt ( 1-m*m ) }, 
                     { l,                            m,                      n                           } 
                 };
             //start transform
