@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActPoint.cs" />
+    <Compile Include="Alignment.cs" />
+    <Compile Include="Feature.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="CurvePara.cs" />
     <Compile Include="Cylinder.cs" />
@@ -51,6 +53,15 @@
     <Compile Include="SPIconf.cs" />
     <Compile Include="SPInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Math.Net\src\Numerics\Numerics.csproj">
+      <Project>{b7cae5f4-a23f-4438-b5be-41226618b695}</Project>
+      <Name>Numerics</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="general_format.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,11 +9,15 @@ using System.IO;
 
 namespace SPInterface
 {
+    
     public class SPIconf
     {
         public readonly string pathFromSP, pathToSP;
         public readonly  int timeout;
-
+        /// <summary>
+        /// the main interface with Calypso
+        /// </summary>
+        /// <param name="filePath">the xml file path, which save the actual path and timeout value</param>
         public SPIconf(string filePath)
         {
             XmlDocument xmldoc = new XmlDocument();

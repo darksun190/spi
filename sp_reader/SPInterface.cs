@@ -15,6 +15,7 @@ namespace SPInterface
         public readonly Dictionary<string, string> sys_dict;
         public XmlDocument xml_result;
         string xmloutpath;
+        Alignment current_alignment;
         public string getPathFromSpecialProgram()
         {
             return spiconf.pathFromSP;
@@ -24,6 +25,10 @@ namespace SPInterface
             return spiconf.pathToSP;
         }
 
+        /// <summary>
+        /// load all information from Calypso
+        /// </summary>
+        /// <param name="SPIconfpath">the folder name, read from xml file</param>
         public SPI(string SPIconfpath)
         {
             spiconf = new SPIconf(SPIconfpath);
@@ -41,12 +46,19 @@ namespace SPInterface
                 {
                     CharacterName = node.InnerText;
                 }
+                if (identify.Equals("CoordinateSystem"))
+                {
+                    current_alignment = new Alignment(node);
+                }
                 if (identify.Equals("Element"))
                 {
                     Element n_ele = new Element(node);
                     elements.Add(n_ele);
                 }
             }
+
+            if (current_alignment == null)
+                current_alignment = new Alignment();
 
             sys_dict = new Dictionary<string, string>();
 
@@ -87,11 +99,24 @@ namespace SPInterface
             result_save();
 
         }
+        /// <summary>
+        /// save current results to the file
+        /// </summary>
         public void result_save()
         {
             xml_result.Save(xmloutpath);
         }
-
+        /// <summary>
+        /// add one line to the result
+        /// </summary>
+        /// <param name="groupid"></param>
+        /// <param name="typesymbol"></param>
+        /// <param name="identifier"></param>
+        /// <param name="act"></param>
+        /// <param name="comment"></param>
+        /// <param name="nom"></param>
+        /// <param name="ut"></param>
+        /// <param name="lt"></param>
         public void addresult(string groupid, string typesymbol, string identifier, double act, string comment = "", double nom = 0, double ut = 0, double lt = 0)
         {
             XmlNode current_node = null;

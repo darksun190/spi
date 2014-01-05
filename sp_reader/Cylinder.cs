@@ -84,9 +84,18 @@ namespace SPInterface
             {
                 double[] vect = new[] { temp.x, temp.y, temp.z };
                 double[] vecO = new double[3];
-                vecO[0] = (vect[0] - zero_point[0]) * (matrix1[0, 0] + matrix1[1, 0] + matrix1[2, 0]);
-                vecO[1] = (vect[1] - zero_point[1]) * (matrix1[0, 1] + matrix1[1, 1] + matrix1[2, 1]);
-                vecO[2] = (vect[2] - zero_point[2]) * (matrix1[0, 2] + matrix1[1, 2] + matrix1[2, 2]);
+                vecO[0] = 
+                    (vect[0] - zero_point[0]) * matrix1[0, 0] 
+                    + (vect[1] - zero_point[1]) * matrix1[1, 0] 
+                    + (vect[2] - zero_point[2]) * matrix1[2, 0];
+                vecO[1] = 
+                    (vect[0] - zero_point[0]) * matrix1[0, 1]
+                    + (vect[1] - zero_point[1]) * matrix1[1, 1]
+                    + (vect[2] - zero_point[2]) * matrix1[2, 1];
+                vecO[2] =
+                    (vect[0] - zero_point[0]) * matrix1[0, 2]
+                    + (vect[1] - zero_point[1]) * matrix1[1, 2]
+                    + (vect[2] - zero_point[2]) * matrix1[2, 2];
 
                 MeasPoint buf_point = new MeasPoint();
                 buf_point.x = vecO[0];

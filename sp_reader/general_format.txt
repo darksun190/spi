@@ -1,0 +1,100 @@
+Point
+<?xml version="1.0" encoding="UTF-8"?>
+<GeometryData>
+<Name>Special Program1</Name>
+<CoordinateSystem/>
+<Element
+    Vector="0.0 0.0 1.0 0.0"
+    Position="12.2825501343 -0.0032654525 265.315711113 1.0"
+    Points="..\..\home\om\testPrg\fromCalypso\activelength_Points.txt"
+    Identifier="activelength"
+    GeoType="SpacePoint"/>
+</GeometryData>
+
+Circle
+<?xml version="1.0" encoding="utf-8"?>
+<GeometryData>
+<Name>Special Program1</Name>
+<CoordinateSystem/>
+<Element
+    GeoType="Circle"
+    Identifier="Circle_M"
+    InverseOrientation="true"
+    Length="0.0"
+    Points="..\..\home\om\testPrg\fromCalypso\Circle_M_Points.txt"
+    Position="0.0080819863 0.0052783286 121.5387349054 1.0"
+    Radius="12.3094522703"
+    Vector="0.0 0.0 1.0 0.0"/>
+</GeometryData>
+
+Plane
+<?xml version="1.0" encoding="utf-8"?>
+<GeometryData>
+<Name>Special Program1</Name>
+<CoordinateSystem/>
+<Element
+    GeoType="Plane"
+    Identifier="FFT_Plane_finish"
+    Length="28.5801228849"
+    Points="..\..\home\om\testPrg\fromCalypso\FFT_Plane_finish_Points.txt"
+    Position="-14.2856352755 -14.2903912796 0.0760057187 1.0"
+    Vector="0.0004882336 0.0019854669 0.9999979098 0.0"
+    Width="28.5861256266"/>
+</GeometryData>
+
+Cylinder
+<?xml version="1.0" encoding="utf-8"?>
+<GeometryData>
+<Name>Special Program1</Name>
+<CoordinateSystem/>
+<Element
+    GeoType="Cylinder"
+    Height="9.000005836"
+    Identifier="M_Cyl_Bottom"
+    InverseOrientation="true"
+    Points="..\..\home\om\testPrg\fromCalypso\M_Cyl_Bottom_Points.txt"
+    Position="-0.0045847329 -0.0064676655 9.0 1.0"
+    Radius="12.3334877969"
+    Vector="0.0003795484 0.0010736952 0.9999993516 0.0"/>
+</GeometryData>
+
+Cone
+<?xml version="1.0" encoding="utf-8"?>
+<GeometryData>
+<Name>Special Program1</Name>
+<CoordinateSystem/>
+<Element
+    GeoType="Cone"
+    Height="13.661"
+    Identifier="inletCone"
+    InverseOrientation="true"
+    Points="..\..\home\om\testPrg\fromCalypso\inletCone_Points.txt"
+    Position="0.004417369 -0.004501119 243.6161255207 1.0"
+    Radius="12.291929842"
+    Vector="0.0000337539 -0.0000105249 0.9999999994 0.0"/>
+</GeometryData>
+
+Curve
+<?xml version="1.0" encoding="utf-8"?>
+<GeometryData>
+<Name>Special Program1</Name>
+<CoordinateSystem/>
+<Element
+    ActPoints="..\..\home\om\testPrg\fromCalypso\MV_ELift_ActPoints.txt"
+    CurveParam="..\..\home\om\testPrg\fromCalypso\MV_ELift_ParaToSpecialProgram.xml"
+    GeoType="curve"
+    Identifier="MV_ELift"
+    MeasPoints="..\..\home\om\testPrg\fromCalypso\MV_ELift_MeasPoints.txt"
+    NomPoints="..\..\home\om\testPrg\fromCalypso\MV_ELift_NomPoints.txt"/>
+</GeometryData>
+
+curve_para.xml
+<?xml version="1.0" encoding="utf-8"?>
+<CurveParameters>
+<maxDev>6.3239451435063d-4</maxDev>
+<indexOfMaxDev>22</indexOfMaxDev>
+<minDev>-0.0018600765726807d</minDev>
+<indexOfMinDev>25</indexOfMinDev>
+<isProjected>false</isProjected>
+<probeCorrection>true</probeCorrection>
+</CurveParameters>
