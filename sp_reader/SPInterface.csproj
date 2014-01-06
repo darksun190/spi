@@ -42,14 +42,19 @@
   <ItemGroup>
     <Compile Include="ActPoint.cs" />
     <Compile Include="Alignment.cs" />
+    <Compile Include="Circle.cs" />
+    <Compile Include="Curve.cs" />
+    <Compile Include="Cylinder.cs" />
+    <Compile Include="Elements.cs" />
     <Compile Include="Feature.cs" />
+    <Compile Include="Path.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="CurvePara.cs" />
-    <Compile Include="Cylinder.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="FullPoint.cs" />
     <Compile Include="MeasPoint.cs" />
     <Compile Include="NomPoint.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="SPIconf.cs" />
     <Compile Include="SPInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

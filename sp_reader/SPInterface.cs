@@ -7,38 +7,31 @@ using System.Xml;
 using System.IO;
 namespace SPInterface
 {
-    public class SPI
+    public static class SPI
     {
-        private SPIconf spiconf;
-        public List<Element> elements;
-        public readonly string CharacterName;
-        public readonly Dictionary<string, string> sys_dict;
-        public XmlDocument xml_result;
-        string xmloutpath;
-        Alignment current_alignment;
-        public string getPathFromSpecialProgram()
+        public static List<Feature> elements = new List<Feature>();
+        public static string CharacterName;
+        public static Dictionary<string, string> sys_dict = new Dictionary<string, string>();
+
+        public static XmlDocument xml_result;
+        static string xmloutpath;
+        public static Alignment current_alignment;
+        public static string getPathFromSpecialProgram()
         {
-            return spiconf.pathFromSP;
+            return SPIconf.pathFromSP;
         }
-        public string getPathToSpecialProgram()
+        public static string getPathToSpecialProgram()
         {
-            return spiconf.pathToSP;
+            return SPIconf.pathToSP;
         }
 
-        /// <summary>
-        /// load all information from Calypso
-        /// </summary>
-        /// <param name="SPIconfpath">the folder name, read from xml file</param>
-        public SPI(string SPIconfpath)
+        static public void init()
         {
-            spiconf = new SPIconf(SPIconfpath);
-
-            string xmlpath = spiconf.pathToSP + @"\ElementsToSpecialProgram.xml";
+            string xmlpath = SPIconf.pathToSP + @"\ElementsToSpecialProgram.xml";
             XmlDocument xmldoc = new XmlDocument();
             xmldoc.Load(xmlpath);
             XmlNode xmlnode = xmldoc.SelectSingleNode("GeometryData");
             XmlNodeList xmlnodelist = xmlnode.ChildNodes;
-            elements = new List<Element>();
             foreach (XmlNode node in xmlnodelist)
             {
                 string identify = node.Name;
@@ -52,7 +45,7 @@ namespace SPInterface
                 }
                 if (identify.Equals("Element"))
                 {
-                    Element n_ele = new Element(node);
+                    Feature n_ele = new Feature(node);
                     elements.Add(n_ele);
                 }
             }
@@ -60,9 +53,8 @@ namespace SPInterface
             if (current_alignment == null)
                 current_alignment = new Alignment();
 
-            sys_dict = new Dictionary<string, string>();
 
-            string syspath = spiconf.pathToSP + @"\SysParaToSpecialProgram.xml";
+            string syspath = SPIconf.pathToSP + @"\SysParaToSpecialProgram.xml";
             XmlDocument sysxmldoc = new XmlDocument();
             sysxmldoc.Load(syspath);
             XmlNode sysxmlnode = sysxmldoc.SelectSingleNode("SystemParameters");
@@ -83,11 +75,11 @@ namespace SPInterface
                 }
 
             }
-            StreamWriter sw = new StreamWriter(spiconf.pathFromSP + @"\DataFromSpecialProgram.txt");
+            StreamWriter sw = new StreamWriter(SPIconf.pathFromSP + @"\DataFromSpecialProgram.txt");
             sw.WriteLine("ResultsFromSpecialProgram.xml");
             sw.Close();
 
-            xmloutpath = spiconf.pathFromSP + @"\ResultsFromSpecialProgram.xml";
+            xmloutpath = SPIconf.pathFromSP + @"\ResultsFromSpecialProgram.xml";
 
             System.IO.File.Delete(xmloutpath);
             xml_result = new XmlDocument();
@@ -99,10 +91,19 @@ namespace SPInterface
             result_save();
 
         }
+
+        /// <summary>
+        /// load all information from Calypso
+        /// </summary>
+        static SPI()
+        {
+
+        
+        }
         /// <summary>
         /// save current results to the file
         /// </summary>
-        public void result_save()
+        public static void result_save()
         {
             xml_result.Save(xmloutpath);
         }
@@ -117,7 +118,7 @@ namespace SPInterface
         /// <param name="nom"></param>
         /// <param name="ut"></param>
         /// <param name="lt"></param>
-        public void addresult(string groupid, string typesymbol, string identifier, double act, string comment = "", double nom = 0, double ut = 0, double lt = 0)
+        public static void addresult(string groupid, string typesymbol, string identifier, double act, string comment = "", double nom = 0, double ut = 0, double lt = 0)
         {
             XmlNode current_node = null;
             XmlNode rootnode = xml_result.SelectSingleNode("GeometryData");

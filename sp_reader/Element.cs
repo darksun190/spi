@@ -8,7 +8,7 @@ using System.IO;
 
 namespace SPInterface
 {
-     public class Element
+     public class Element1
     {
         public readonly string geoType;
         public readonly string identifier;
@@ -51,11 +51,11 @@ namespace SPInterface
         public readonly double radius;
         public readonly bool isOutside;
 
-        public Element()
+        public Element1()
         {
         }
 
-        public Element(XmlNode node)
+        public Element1(XmlNode node)
         {
             geoType = node.Attributes["GeoType"].Value;
             identifier = node.Attributes["Identifier"].Value;

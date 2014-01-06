@@ -7,23 +7,20 @@ using System.IO;
 
 namespace SPInterface
 {
-    public class Cylinder : Circle
+    class Point : Feature
     {
-       
-        double height;
-        
-        public Cylinder(Feature fea) 
+        DenseVector Vector;
+        DenseVector Position;
+        string points_file_name;
+      
+
+        public Point(Feature fea)
         {
-            if (fea.geoType != "Cylinder" && fea.geoType != "Circle")
+            if (fea.geoType != "Point")
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
             this.identifier = fea.identifier;
             this.geoType = fea.geoType;
-            //get length, direction and radius
-            //height = Convert.ToDouble(xml_paras["Height"]);
-            radius = Convert.ToDouble(xml_paras["Radius"]);
-            inside = Convert.ToBoolean(xml_paras["InverseOrientation"]);
-
             //init Vector
             string vector_string = xml_paras["Vector"].Trim('\"');
             Vector = new DenseVector(
@@ -44,7 +41,7 @@ namespace SPInterface
 
             //init get meas Points
             points_file_name = xml_paras["Points"];
-            FileInfo meas_fi = new FileInfo(points_file_name); 
+            FileInfo meas_fi = new FileInfo(points_file_name);
             StreamReader meas_sr = new StreamReader(meas_fi.FullName);
             string line;
             measPoints = new List<MeasPoint>();
@@ -66,8 +63,50 @@ namespace SPInterface
             }
 
             feature_alignment = new Alignment(Vector, Position, identifier + "_alignment");
-
         }
+
        
+        public double x
+        {
+            get
+            {
+                return Position[0];
+            }
+        }
+        public double y
+        {
+            get
+            {
+                return Position[1];
+            }
+        }
+        public double z
+        {
+            get
+            {
+                return Position[2];
+            }
+        }
+        public double i
+        {
+            get
+            {
+                return Vector[0];
+            }
+        }
+        public double j
+        {
+            get
+            {
+                return Vector[1];
+            }
+        }
+        public double k
+        {
+            get
+            {
+                return Vector[2];
+            }
+        }
     }
 }

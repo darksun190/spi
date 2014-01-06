@@ -10,25 +10,25 @@ using System.IO;
 namespace SPInterface
 {
     
-    public class SPIconf
+    public static class SPIconf
     {
-        public readonly string pathFromSP, pathToSP;
-        public readonly  int timeout;
+        public static readonly string pathFromSP, pathToSP;
+        public static readonly int timeout;
+      
         /// <summary>
         /// the main interface with Calypso
         /// </summary>
-        /// <param name="filePath">the xml file path, which save the actual path and timeout value</param>
-        public SPIconf(string filePath)
+        static SPIconf()
         {
             XmlDocument xmldoc = new XmlDocument();
-            xmldoc.Load(filePath);
+            xmldoc.Load(SP_Path.folder_name);
             XmlNode xmlnode = xmldoc.SelectSingleNode("ConfigFileTest");
             XmlNodeList xmlnodelist = xmlnode.ChildNodes;
             foreach (XmlNode node in xmlnodelist)
             {
-                if (node.Name.Equals( "PathToSP",StringComparison.CurrentCultureIgnoreCase))
+                if (node.Name.Equals("PathToSP", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    pathToSP = new DirectoryInfo( node.InnerText).FullName;
+                    pathToSP = new DirectoryInfo(node.InnerText).FullName;
                 }
                 if (node.Name.Equals("PathFromSP", StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -39,8 +39,6 @@ namespace SPInterface
                     timeout = Convert.ToInt32(node.InnerText);
                 }
             }
-           
-           
         }
     }
 }

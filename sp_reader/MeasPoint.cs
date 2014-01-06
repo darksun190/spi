@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace SPInterface
 {
@@ -41,12 +42,36 @@ namespace SPInterface
                 status = 0;
                 ProbeRadius = 0.0;
             }
+            Position = new DenseVector(new double[4] { x, y, z, 1 }) * SPI.current_alignment;
+            Vector = new DenseVector(new double[4] { u, v, w, 0 }) * SPI.current_alignment;
+
+            x = Position[0];
+            y = Position[1];
+            z = Position[2];
+            u = Vector[0];
+            v = Vector[1];
+            w = Vector[2];
         }
 
-
+        DenseVector Position;
+        DenseVector Vector;
         public double x, y, z;
         public double u, v, w;
         public double ProbeRadius;
         public int seq, status;
+        public MeasPoint(MeasPoint old, Alignment fea_align)
+        {
+            seq = old.seq;
+            status = old.status;
+            ProbeRadius = old.ProbeRadius;
+            Position = old.Position * fea_align;
+            Vector = old.Vector * fea_align;
+            x = Position[0];
+            y = Position[1];
+            z = Position[2];
+            u = Vector[0];
+            v = Vector[1];
+            w = Vector[2];
+        }
     }
 }
