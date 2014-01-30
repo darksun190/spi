@@ -84,5 +84,19 @@ namespace SPInterface
             XmlNode xmlnode = xmldoc.SelectSingleNode("CurveParameters");
             curve_paras = new CurvePara(xmlnode);
         }
+        public override List<double> Deviations
+        {
+            get
+            {
+                if (_devs == null)
+                {
+                    foreach(var temp in results_points)
+                    {
+                        _devs.Add(temp.dev);
+                    }
+                }
+                return _devs;
+            }
+        }
     }
 }

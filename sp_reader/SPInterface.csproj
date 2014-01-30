@@ -51,7 +51,6 @@
     <Compile Include="Path.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="CurvePara.cs" />
-    <Compile Include="Element.cs" />
     <Compile Include="FullPoint.cs" />
     <Compile Include="MeasPoint.cs" />
     <Compile Include="NomPoint.cs" />

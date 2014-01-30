@@ -97,5 +97,29 @@ namespace SPInterface
                 return length * width;
             }
         }
+        public override List<double> Deviations
+        {
+            get
+            {
+                if (_devs == null)
+                {
+                    double x0, y0, z0, i0, j0, k0;
+                    Vector vec_base = this.Vector * SPI.current_alignment.Transpose();
+                    Vector pos_base = this.Position * SPI.current_alignment.Transpose();
+                    x0 = pos_base[0];
+                    y0 = pos_base[1];
+                    z0 = pos_base[2];
+                    i0 = vec_base[0];
+                    j0 = vec_base[1];
+                    k0 = vec_base[2];
+                    _devs = new List<double>();
+                    foreach (var temp in measPoints)
+                    {
+                        _devs.Add(i0*(temp.x-x0) +j0*(temp.y-y0)+k0*(temp.z-z0));
+                    }
+                }
+                return _devs;
+            }
+        }
     }
 }

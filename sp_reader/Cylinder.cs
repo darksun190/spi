@@ -78,8 +78,8 @@ namespace SPInterface
                 if (_devs == null)
                 {
                     double x0, y0, z0, i0, j0, k0;
-                    Vector vec_base = this.Vector * feature_alignment.Transpose();
-                    Vector pos_base = this.Position * feature_alignment.Transpose();
+                    Vector vec_base = this.Vector * SPI.current_alignment.Transpose();
+                    Vector pos_base = this.Position * SPI.current_alignment.Transpose();
                     x0 = pos_base[0];
                     y0 = pos_base[1];
                     z0 = pos_base[2];
