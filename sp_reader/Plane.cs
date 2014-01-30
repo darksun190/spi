@@ -16,7 +16,7 @@ namespace SPInterface
 
         public Plane(Feature fea)
         {
-            if (fea.geoType != "Plane")
+            if (fea.geoType != FeatureType.Plane)
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
             this.identifier = fea.identifier;

@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70DA37EF-1B65-457F-A554-E6F943EA2BA4}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{84DB0844-6C9C-4813-B0E9-9D6AC4FF4725}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SPInterface</RootNamespace>
-    <AssemblyName>SPInterface</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>testblock</RootNamespace>
+    <AssemblyName>testblock</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,34 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActPoint.cs" />
-    <Compile Include="Alignment.cs" />
-    <Compile Include="Circle.cs" />
-    <Compile Include="Curve.cs" />
-    <Compile Include="Cylinder.cs" />
-    <Compile Include="Elements.cs" />
-    <Compile Include="Feature.cs" />
-    <Compile Include="FeatureType.cs" />
-    <Compile Include="Path.cs" />
-    <Compile Include="Plane.cs" />
-    <Compile Include="CurvePara.cs" />
-    <Compile Include="Element.cs" />
-    <Compile Include="FullPoint.cs" />
-    <Compile Include="MeasPoint.cs" />
-    <Compile Include="NomPoint.cs" />
-    <Compile Include="Point.cs" />
-    <Compile Include="SPIconf.cs" />
-    <Compile Include="SPInterface.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Math.Net\src\Numerics\Numerics.csproj">
-      <Project>{b7cae5f4-a23f-4438-b5be-41226618b695}</Project>
-      <Name>Numerics</Name>
-    </ProjectReference>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="general_format.txt" />
+    <ProjectReference Include="..\sp_reader\SPInterface.csproj">
+      <Project>{70da37ef-1b65-457f-a554-e6f943ea2ba4}</Project>
+      <Name>SPInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

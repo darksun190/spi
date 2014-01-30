@@ -16,7 +16,7 @@ namespace SPInterface
 
         public Point(Feature fea)
         {
-            if (fea.geoType != "Point")
+            if (fea.geoType != FeatureType.Point)
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
             this.identifier = fea.identifier;

@@ -23,8 +23,78 @@ namespace SPInterface
         {
             get
             {
+                if (round_revs == 0)
+                    calc_angle_revs();
                 return round_revs;
             }
+        }
+        void calc_angle_revs()
+        {
+            point_angle_offset = new List<double>();
+
+            //minimum points
+            int min_points = 9;
+            if (point_no < min_points)
+            {
+                throw (new Exception("too less Point, " + min_points.ToString() + " points at least"));
+                //means points was too less;
+            }
+
+            double angle1, angle3, angle5;
+            //clockwise or anticlock
+            int direction;
+            angle1 = Math.Atan2(transferedPoints[0].y, transferedPoints[0].x);
+            angle3 = Math.Atan2(transferedPoints[4].y, transferedPoints[4].x);
+            angle5 = Math.Atan2(transferedPoints[8].y, transferedPoints[8].x);
+            if ((angle5 - angle3) * (angle3 - angle1) < 0)
+            {
+                //means the start point nearby the 180-degree
+                double abs13, abs35;
+                abs13 = Math.Abs(angle1 - angle3);
+                abs35 = Math.Abs(angle3 - angle5);
+                if (abs13 < abs35)
+                {
+                    direction = angle3 > angle1 ? 1 : -1;
+                }
+                else
+                {
+                    direction = angle5 > angle3 ? 1 : -1;
+                }
+            }
+            else
+            {
+                //normal situation
+                direction = angle3 > angle1 ? 1 : -1;
+            }
+            round_revs = 0;
+            point_angle_offset.Add(round_revs);
+            double next_angle, last_angle;
+            last_angle = angle1;
+            for (int i = 1; i < point_no; ++i)
+            {
+                next_angle = Math.Atan2(transferedPoints[i].y, transferedPoints[i].x);
+                if (Math.Abs(next_angle - last_angle) > Math.PI)
+                {
+                    if (direction == 1)
+                    {
+                        round_revs += next_angle + 2 * Math.PI - last_angle;
+                    }
+                    else
+                    {
+                        round_revs += next_angle - 2 * Math.PI - last_angle;
+                    }
+                }
+                else
+                {
+                    round_revs += next_angle - last_angle;
+                }
+               
+                last_angle = next_angle;
+                point_angle_offset.Add(round_revs);
+
+            }
+
+
         }
         public List<double> angle_commu
         {
@@ -32,70 +102,7 @@ namespace SPInterface
             {
                 if (point_angle_offset == null)
                 {
-                    point_angle_offset = new List<double>();
-
-                    //minimum points
-                    int min_points = 9;
-                    if (point_no < min_points)
-                    {
-                        throw (new Exception("too less Point, " + min_points.ToString() + " points at least"));
-                        //means points was too less;
-                    }
-
-                    double angle1, angle3, angle5;
-                    //clockwise or anticlock
-                    int direction;
-                    angle1 = Math.Atan2(transferedPoints[0].y, transferedPoints[0].x);
-                    angle3 = Math.Atan2(transferedPoints[4].y, transferedPoints[4].x);
-                    angle5 = Math.Atan2(transferedPoints[8].y, transferedPoints[8].x);
-                    if ((angle5 - angle3) * (angle3 - angle1) < 0)
-                    {
-                        //means the start point nearby the 180-degree
-                        double abs13, abs35;
-                        abs13 = Math.Abs(angle1 - angle3);
-                        abs35 = Math.Abs(angle3 - angle5);
-                        if (abs13 < abs35)
-                        {
-                            direction = angle3 > angle1 ? 1 : -1;
-                        }
-                        else
-                        {
-                            direction = angle5 > angle3 ? 1 : -1;
-                        }
-                    }
-                    else
-                    {
-                        //normal situation
-                        direction = angle3 > angle1 ? 1 : -1;
-                    }
-                    round_revs = 0;
-                    point_angle_offset.Add(round_nr);
-                    double next_angle, last_angle;
-                    last_angle = angle1;
-                    for (int i = 1; i < point_no; ++i)
-                    {
-                        next_angle = Math.Atan2(transferedPoints[i].y, transferedPoints[i].x);
-                        if (Math.Abs(next_angle - last_angle) > Math.PI)
-                        {
-                            if (direction == 1)
-                            {
-                                round_revs += next_angle + 2 * Math.PI - last_angle;
-                            }
-                            else
-                            {
-                                round_revs += next_angle - 2 * Math.PI - last_angle;
-                            }
-                        }
-                        else
-                        {
-                            round_revs += next_angle - last_angle;
-                        }
-                        //qDebug()<<last_angle<<"\t"<<next_angle<<"\t"<<next_angle-last_angle<<"\t"<<round_nr;
-                        last_angle = next_angle;
-                        point_angle_offset.Add(round_nr);
-
-                    }
-
+                    calc_angle_revs();
                 }
                 return point_angle_offset;
             }
@@ -107,7 +114,7 @@ namespace SPInterface
 
         public Circle(Feature fea)
         {
-            if (fea.geoType != "Circle")
+            if (fea.geoType != FeatureType.Circle)
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
             this.identifier = fea.identifier;
@@ -137,7 +144,7 @@ namespace SPInterface
 
             //init get meas Points
             points_file_name = xml_paras["Points"];
-            FileInfo meas_fi = new FileInfo(points_file_name); 
+            FileInfo meas_fi = new FileInfo(points_file_name);
             StreamReader meas_sr = new StreamReader(meas_fi.FullName);
             string line;
             measPoints = new List<MeasPoint>();
@@ -157,7 +164,6 @@ namespace SPInterface
                     measMaskedPoints.Last().seq = seq_nr++;
                 }
             }
-
             feature_alignment = new Alignment(Vector, Position, identifier + "_alignment");
 
         }
@@ -173,7 +179,7 @@ namespace SPInterface
                     feature_alignment_points = new List<MeasPoint>();
                     foreach (MeasPoint point in measPoints)
                     {
-                        feature_alignment_points.Add( new MeasPoint(point,feature_alignment));
+                        feature_alignment_points.Add(new MeasPoint(point, feature_alignment));
                     }
                 }
                 return feature_alignment_points;

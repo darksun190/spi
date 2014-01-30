@@ -14,7 +14,7 @@ namespace SPInterface
         
         public Cylinder(Feature fea) 
         {
-            if (fea.geoType != "Cylinder" && fea.geoType != "Circle")
+            if (fea.geoType != FeatureType.Cylinder && fea.geoType != FeatureType.Circle)
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
             this.identifier = fea.identifier;
@@ -68,6 +68,35 @@ namespace SPInterface
             feature_alignment = new Alignment(Vector, Position, identifier + "_alignment");
 
         }
-       
+        public Cylinder(Curve cu)
+        {
+        }
+        public override List<double> Deviations
+        {
+            get
+            {
+                if (_devs == null)
+                {
+                    double x0, y0, z0, i0, j0, k0;
+                    Vector vec_base = this.Vector * feature_alignment.Transpose();
+                    Vector pos_base = this.Position * feature_alignment.Transpose();
+                    x0 = pos_base[0];
+                    y0 = pos_base[1];
+                    z0 = pos_base[2];
+                    i0 = vec_base[0];
+                    j0 = vec_base[1];
+                    k0 = vec_base[2];
+                    _devs = new List<double>();
+                    foreach (var temp in measPoints)
+                    {
+                        double u = k0 * (temp.y - y0) - j0 * (temp.z - z0);
+                        double v = i0 * (temp.z - z0) - k0 * (temp.x - x0);
+                        double w = j0 * (temp.x - x0) - i0 * (temp.y - y0);
+                        _devs.Add(Math.Sqrt(u * u + v * v + w * w) / Math.Sqrt(i0 * i0 + j0 * j0 + k0 * k0));
+                    }
+                }
+                return _devs;
+            }
+        }
     }
 }

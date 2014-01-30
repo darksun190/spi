@@ -8,11 +8,12 @@ using System.Xml;
 
 namespace SPInterface
 {
-    class Curve : Feature
+    public class Curve : Feature
     {
         public readonly string fileNomPoints;
         public readonly string fileMeasPoints;
         public readonly string fileActPoints;
+        public List<FullPoint> results_points;
         List<NomPoint> nomPoints;
         List<ActPoint> actPoints;
         List<ActPoint> actMaskedPoints;
@@ -20,7 +21,7 @@ namespace SPInterface
 
         public Curve(Feature fea)
         {
-            if (fea.geoType != "curve")
+            if (fea.geoType != FeatureType.Curve)
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
             this.identifier = fea.identifier;
@@ -69,6 +70,12 @@ namespace SPInterface
                     measPoints.Add(temp_Meas_point);
                 else
                     measMaskedPoints.Add(temp_Meas_point);
+            }
+
+            results_points = new List<FullPoint>();
+            for (int i = 0; i < nomPoints.Count; ++i)
+            {
+                results_points.Add(new FullPoint(nomPoints[i], actPoints[i]));
             }
 
             string curve_xmlpath = new FileInfo(xml_paras["CurveParam"]).FullName;

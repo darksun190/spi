@@ -53,8 +53,8 @@ namespace SPInterface
             w = Vector[2];
         }
 
-        DenseVector Position;
-        DenseVector Vector;
+        public readonly DenseVector Position;
+        public readonly DenseVector Vector;
         public double x, y, z;
         public double u, v, w;
         public double ProbeRadius;
