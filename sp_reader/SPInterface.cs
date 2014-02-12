@@ -46,7 +46,7 @@ namespace SPInterface
                 if (identify.Equals("Element"))
                 {
                     Feature n_ele = new Feature(node);
-                    elements.Add(n_ele);
+                    elements.Add(n_ele.ConvertType());
                 }
             }
 

@@ -14,6 +14,21 @@ namespace SPInterface
         {
 
         }
+        public MeasPoint(IList<double> datas)
+        {
+            if (datas.Count() < 3)
+                throw (new IndexOutOfRangeException("at least 3 numbers"));
+            seq = 0;
+            x = datas[0];
+            y = datas[1];
+            z = datas[2];
+            if (datas.Count() >= 6)
+            {
+                u = datas[3];
+                v = datas[4];
+                w = datas[5];
+            }
+        }
         public MeasPoint(string buf,bool isCurve = true)
         {
             string pattern = @"\s+";

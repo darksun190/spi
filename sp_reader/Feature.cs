@@ -89,8 +89,8 @@ namespace SPInterface
             {
                 xml_paras.Add(xmlatt.Name, xmlatt.Value);
             }
-
         }
+
         public double formError()
         {
             return form_error;

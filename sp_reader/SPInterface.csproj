@@ -45,7 +45,6 @@
     <Compile Include="Circle.cs" />
     <Compile Include="Curve.cs" />
     <Compile Include="Cylinder.cs" />
-    <Compile Include="Elements.cs" />
     <Compile Include="Feature.cs" />
     <Compile Include="FeatureType.cs" />
     <Compile Include="Path.cs" />

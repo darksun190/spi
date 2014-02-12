@@ -9,11 +9,12 @@ namespace SPInterface
 {
     public class Cylinder : Circle
     {
-       
+
         double height;
-        
-        public Cylinder(Feature fea) 
+
+        public Cylinder(Feature fea)
         {
+
             if (fea.geoType != FeatureType.Cylinder && fea.geoType != FeatureType.Circle)
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
@@ -44,7 +45,7 @@ namespace SPInterface
 
             //init get meas Points
             points_file_name = xml_paras["Points"];
-            FileInfo meas_fi = new FileInfo(points_file_name); 
+            FileInfo meas_fi = new FileInfo(points_file_name);
             StreamReader meas_sr = new StreamReader(meas_fi.FullName);
             string line;
             measPoints = new List<MeasPoint>();
