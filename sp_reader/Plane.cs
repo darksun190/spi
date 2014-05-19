@@ -69,6 +69,13 @@ namespace SPInterface
             feature_alignment = new Alignment(Vector, Position, identifier + "_alignment");
 
         }
+        public override List<MeasPoint> Alignment_Points
+        {
+            get
+            {
+                return measPoints;
+            }
+        }
         public double i
         {
             get

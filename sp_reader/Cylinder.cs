@@ -11,7 +11,7 @@ namespace SPInterface
     {
 
         double height;
-
+        public Cylinder() { }
         public Cylinder(Feature fea)
         {
 
@@ -69,9 +69,6 @@ namespace SPInterface
             feature_alignment = new Alignment(Vector, Position, identifier + "_alignment");
 
         }
-        public Cylinder(Curve cu)
-        {
-        }
         public override List<double> Deviations
         {
             get
@@ -93,7 +90,7 @@ namespace SPInterface
                         double u = k0 * (temp.y - y0) - j0 * (temp.z - z0);
                         double v = i0 * (temp.z - z0) - k0 * (temp.x - x0);
                         double w = j0 * (temp.x - x0) - i0 * (temp.y - y0);
-                        _devs.Add(Math.Sqrt(u * u + v * v + w * w) / Math.Sqrt(i0 * i0 + j0 * j0 + k0 * k0));
+                        _devs.Add(Math.Sqrt(u * u + v * v + w * w) / Math.Sqrt(i0 * i0 + j0 * j0 + k0 * k0)-radius);
                     }
                 }
                 return _devs;

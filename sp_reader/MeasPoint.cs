@@ -28,6 +28,15 @@ namespace SPInterface
                 v = datas[4];
                 w = datas[5];
             }
+            else
+            {
+                u = 0;
+                v = 0;
+                w = 1;
+            }
+            Position = new DenseVector(new double[4] { x, y, z, 1 });
+            Vector = new DenseVector(new double[4] { u, v, w, 0 }) ;
+
         }
         public MeasPoint(string buf,bool isCurve = true)
         {
@@ -57,8 +66,8 @@ namespace SPInterface
                 status = 0;
                 ProbeRadius = 0.0;
             }
-            Position = new DenseVector(new double[4] { x, y, z, 1 }) * SPI.current_alignment;
-            Vector = new DenseVector(new double[4] { u, v, w, 0 }) * SPI.current_alignment;
+            Position = new DenseVector(new double[4] { x, y, z, 1 }) * SPI.current_alignment.Transpose();
+            Vector = new DenseVector(new double[4] { u, v, w, 0 }) * SPI.current_alignment.Transpose();
 
             x = Position[0];
             y = Position[1];

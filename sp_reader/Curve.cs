@@ -90,13 +90,20 @@ namespace SPInterface
             {
                 if (_devs == null)
                 {
-                    foreach(var temp in results_points)
+                    _devs = new List<double>();
+                    foreach (var temp in results_points)
                     {
                         _devs.Add(temp.dev);
                     }
                 }
                 return _devs;
             }
+        }
+        public override int point_no()
+        {
+          
+                return Deviations.Count();
+           
         }
     }
 }

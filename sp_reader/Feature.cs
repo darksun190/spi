@@ -22,39 +22,37 @@ namespace SPInterface
         protected List<MeasPoint> measMaskedPoints;
         protected List<double> _devs;
 
-        public Feature ConvertType(FeatureType geoType)
-        {
-            switch (geoType)
-            {
-                case FeatureType.Circle:
-                    return new Circle(this);
-                case FeatureType.Cylinder:
-                    return new Cylinder(this);
-                case FeatureType.Plane:
-                    return new Plane(this);
-                case FeatureType.Point:
-                    return new Point(this);
-                case FeatureType.Curve:
-                    return new Curve(this);
-                case FeatureType.Cone:
-                    throw new Exception("didn't implement");
-                default:
-                    throw new Exception("unkown type");
-            }
-        }
+        //public Feature ConvertType(FeatureType geoType)
+        //{
+        //    switch (geoType)
+        //    {
+        //        case FeatureType.Circle:
+        //            return new Circle(this);
+        //        case FeatureType.Cylinder:
+        //            return new Cylinder(this);
+        //        case FeatureType.Plane:
+        //            return new Plane(this);
+        //        case FeatureType.Point:
+        //            return new Point(this);
+        //        case FeatureType.Curve:
+        //            return new Curve(this);
+        //        case FeatureType.Cone:
+        //            throw new Exception("didn't implement");
+        //        default:
+        //            throw new Exception("unkown type");
+        //    }
+        //}
         public Feature ConvertType()
         {
-            return ConvertType(this.geoType);
+            return FeatureFactory.createFeature(this);
         }
-        public int point_no
+        public virtual int point_no()
         {
-            get
-            {
-                if (measPoints == null)
-                    return 0;
-                else
-                    return measPoints.Count;
-            }
+
+            if (measPoints == null)
+                return 0;
+            else
+                return measPoints.Count;
         }
         
         protected Feature()
@@ -104,7 +102,18 @@ namespace SPInterface
             return min_dev;
         }
         virtual public List<double> Deviations
-        {get;private set;}
+        {
+            get;
+            private set;
+        }
+        /// <summary>
+        /// base on the reference Alignment
+        /// </summary>
+        virtual public List<MeasPoint> Alignment_Points
+        {
+            get;
+            private set;
+        }
         
     }
 }

@@ -30,7 +30,20 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Calypso5.4|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Calypso5.4\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MathNet.Numerics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\zcxsun\Documents\VS GIT\MathNet.Numerics.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,9 +56,11 @@
     <Compile Include="ActPoint.cs" />
     <Compile Include="Alignment.cs" />
     <Compile Include="Circle.cs" />
+    <Compile Include="CircleSection.cs" />
     <Compile Include="Curve.cs" />
     <Compile Include="Cylinder.cs" />
     <Compile Include="Feature.cs" />
+    <Compile Include="FeatureFactory.cs" />
     <Compile Include="FeatureType.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="Plane.cs" />
@@ -54,15 +69,10 @@
     <Compile Include="MeasPoint.cs" />
     <Compile Include="NomPoint.cs" />
     <Compile Include="Point.cs" />
+    <Compile Include="SectionCircle.cs" />
     <Compile Include="SPIconf.cs" />
     <Compile Include="SPInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Math.Net\src\Numerics\Numerics.csproj">
-      <Project>{b7cae5f4-a23f-4438-b5be-41226618b695}</Project>
-      <Name>Numerics</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="general_format.txt" />

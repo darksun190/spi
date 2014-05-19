@@ -34,7 +34,7 @@ namespace SPInterface
 
             //minimum points
             int min_points = 9;
-            if (point_no < min_points)
+            if (point_no() < min_points)
             {
                 throw (new Exception("too less Point, " + min_points.ToString() + " points at least"));
                 //means points was too less;
@@ -70,7 +70,7 @@ namespace SPInterface
             point_angle_offset.Add(round_revs);
             double next_angle, last_angle;
             last_angle = angle1;
-            for (int i = 1; i < point_no; ++i)
+            for (int i = 1; i < point_no(); ++i)
             {
                 next_angle = Math.Atan2(transferedPoints[i].y, transferedPoints[i].x);
                 if (Math.Abs(next_angle - last_angle) > Math.PI)
@@ -177,12 +177,19 @@ namespace SPInterface
                 if (feature_alignment_points == null)
                 {
                     feature_alignment_points = new List<MeasPoint>();
-                    foreach (MeasPoint point in measPoints)
+                    foreach (MeasPoint point in Alignment_Points)
                     {
                         feature_alignment_points.Add(new MeasPoint(point, feature_alignment));
                     }
                 }
                 return feature_alignment_points;
+            }
+        }
+        public override List<MeasPoint> Alignment_Points
+        {
+            get
+            {
+                return measPoints;
             }
         }
         public double x
@@ -219,6 +226,52 @@ namespace SPInterface
             {
                 return radius;
             }
+        }
+        public override List<double> Deviations
+        {
+            get
+            {
+                if (_devs == null)
+                {
+                    double x0, y0, z0, i0, j0, k0;
+                    Vector vec_base = this.Vector * SPI.current_alignment.Transpose();
+                    Vector pos_base = this.Position * SPI.current_alignment.Transpose();
+                    x0 = pos_base[0];
+                    y0 = pos_base[1];
+                    z0 = pos_base[2];
+                    i0 = vec_base[0];
+                    j0 = vec_base[1];
+                    k0 = vec_base[2];
+                    _devs = new List<double>();
+                    foreach (var temp in measPoints)
+                    {
+                        double u = k0 * (temp.y - y0) - j0 * (temp.z - z0);
+                        double v = i0 * (temp.z - z0) - k0 * (temp.x - x0);
+                        double w = j0 * (temp.x - x0) - i0 * (temp.y - y0);
+                        _devs.Add(Math.Sqrt(u * u + v * v + w * w) / Math.Sqrt(i0 * i0 + j0 * j0 + k0 * k0) - radius);
+                    }
+                }
+                return _devs;
+            }
+        }
+
+        public double lead
+        {
+            get
+            {
+                return calcLead();
+            }
+        }
+
+        protected virtual double calcLead()
+        {
+            List<double> z_value = new List<double>();
+            foreach (MeasPoint p in transferedPoints)
+            {
+                z_value.Add(p.z - transferedPoints[0].z);
+            }
+            double _lead = Math.Round(((z_value.Average() * 2) / (round_nr / (2 * Math.PI))) * 4, 0) / 4.0;
+            return _lead;
         }
     }
 }
