@@ -114,13 +114,13 @@ namespace SPInterface
 
         public Circle(Feature fea)
         {
-            if (fea.geoType != FeatureType.Circle)
+            if (fea.geoType != FeatureType.Circle && fea.geoType != FeatureType.Cylinder)
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
             this.identifier = fea.identifier;
             this.geoType = fea.geoType;
             //get length, direction and radius
-            length = Convert.ToDouble(xml_paras["Length"]);
+            //length = Convert.ToDouble(xml_paras["Length"]);
             radius = Convert.ToDouble(xml_paras["Radius"]);
             inside = Convert.ToBoolean(xml_paras["InverseOrientation"]);
 
