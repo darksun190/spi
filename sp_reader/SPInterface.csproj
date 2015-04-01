@@ -40,12 +40,13 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MathNet.Numerics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MathNet.Numerics, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Users\zcxsun\Documents\VS GIT\MathNet.Numerics.dll</HintPath>
+      <HintPath>..\..\..\..\Users\zcxsun\documents\visual studio 2015\Projects\MogulReport\packages\MathNet.Numerics.3.5.0\lib\net40\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,6 +63,7 @@
     <Compile Include="Feature.cs" />
     <Compile Include="FeatureFactory.cs" />
     <Compile Include="FeatureType.cs" />
+    <Compile Include="Line.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="CurvePara.cs" />
@@ -76,6 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="general_format.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

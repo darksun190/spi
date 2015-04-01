@@ -11,6 +11,20 @@ Point
     GeoType="SpacePoint"/>
 </GeometryData>
 
+Line
+<?xml version="1.0" encoding="utf-8"?>
+<GeometryData>
+<Name>Special Program1</Name>
+<CoordinateSystem/>
+<Element 
+	GeoType="Line" 	
+	Identifier="2d Line1" 
+	Length="8.9999947894" 
+	Points="..\..\sp_CDN\tmp\2d Line1_Points.txt" 
+	Position="40.005548279 0.01 8.9999940297 1.0" 
+	Vector="-0.999999421 0.0 0.0010760608 0.0"/>
+</GeometryData>
+
 Circle
 <?xml version="1.0" encoding="utf-8"?>
 <GeometryData>

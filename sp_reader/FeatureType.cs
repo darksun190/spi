@@ -13,6 +13,7 @@ namespace SPInterface
         Cone,
         Plane,
         Curve,
-        Unknown
+        Unknown,
+        Line
     }
 }
