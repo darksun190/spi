@@ -82,60 +82,6 @@ namespace SPInterface
             else
                 direction = -1;
 
-            #region old method
-            //double angle1, angle3, angle5;
-            //angle1 = Math.Atan2(transferedPoints[0].y, transferedPoints[0].x);
-            //angle3 = Math.Atan2(transferedPoints[4].y, transferedPoints[4].x);
-            //angle5 = Math.Atan2(transferedPoints[8].y, transferedPoints[8].x);
-            //if ((angle5 - angle3) * (angle3 - angle1) < 0)
-            //{
-            //    //means the start point nearby the 180-degree
-            //    double abs13, abs35;
-            //    abs13 = Math.Abs(angle1 - angle3);
-            //    abs35 = Math.Abs(angle3 - angle5);
-            //    if (abs13 < abs35)
-            //    {
-            //        direction = angle3 > angle1 ? 1 : -1;
-            //    }
-            //    else
-            //    {
-            //        direction = angle5 > angle3 ? 1 : -1;
-            //    }
-            //}
-            //else
-            //{
-            //    //normal situation
-            //    direction = angle3 > angle1 ? 1 : -1;
-            //}
-            //round_revs = 0;
-            //point_angle_offset.Add(round_revs);
-            //double next_angle, last_angle;
-            //last_angle = angle1;
-            //for (int i = 1; i < point_no(); ++i)
-            //{
-            //    next_angle = Math.Atan2(transferedPoints[i].y, transferedPoints[i].x);
-            //    if (Math.Abs(next_angle - last_angle) > Math.PI)
-            //    {
-            //        if (direction == 1)
-            //        {
-            //            round_revs += next_angle + 2 * Math.PI - last_angle;
-            //        }
-            //        else
-            //        {
-            //            round_revs += next_angle - 2 * Math.PI - last_angle;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        round_revs += next_angle - last_angle;
-            //    }
-
-            //    last_angle = next_angle;
-            //    point_angle_offset.Add(round_revs);
-
-            //}
-            #endregion
-
         }
         public List<double> angle_commu
         {
