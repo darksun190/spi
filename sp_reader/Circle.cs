@@ -51,7 +51,7 @@ namespace SPInterface
             for (int i = 1; i < point_no(); ++i)
             {
                 cur_angle = Math.Atan2(transferedPoints[i].y, transferedPoints[i].x);
-                double t = cur_angle - last_angle;
+                double t = cur_angle - last_angle; 
                 if (Math.Abs(t) > Math.PI)
                 {
                     if (t > 0)
