@@ -40,60 +40,101 @@ namespace SPInterface
                 //means points was too less;
             }
 
-            double angle1, angle3, angle5;
+
             //clockwise or anticlock
+
             int direction;
-            angle1 = Math.Atan2(transferedPoints[0].y, transferedPoints[0].x);
-            angle3 = Math.Atan2(transferedPoints[4].y, transferedPoints[4].x);
-            angle5 = Math.Atan2(transferedPoints[8].y, transferedPoints[8].x);
-            if ((angle5 - angle3) * (angle3 - angle1) < 0)
-            {
-                //means the start point nearby the 180-degree
-                double abs13, abs35;
-                abs13 = Math.Abs(angle1 - angle3);
-                abs35 = Math.Abs(angle3 - angle5);
-                if (abs13 < abs35)
-                {
-                    direction = angle3 > angle1 ? 1 : -1;
-                }
-                else
-                {
-                    direction = angle5 > angle3 ? 1 : -1;
-                }
-            }
-            else
-            {
-                //normal situation
-                direction = angle3 > angle1 ? 1 : -1;
-            }
-            round_revs = 0;
-            point_angle_offset.Add(round_revs);
-            double next_angle, last_angle;
-            last_angle = angle1;
+            point_angle_offset.Add(0);      //first point is 0
+            double last_angle, cur_angle;
+            last_angle = Math.Atan2(transferedPoints[0].y, transferedPoints[0].x);
+            double temp_dev;
             for (int i = 1; i < point_no(); ++i)
             {
-                next_angle = Math.Atan2(transferedPoints[i].y, transferedPoints[i].x);
-                if (Math.Abs(next_angle - last_angle) > Math.PI)
+                cur_angle = Math.Atan2(transferedPoints[i].y, transferedPoints[i].x);
+                double t = cur_angle - last_angle;
+                if (Math.Abs(t) > Math.PI)
                 {
-                    if (direction == 1)
+                    if (t > 0)
                     {
-                        round_revs += next_angle + 2 * Math.PI - last_angle;
+                        temp_dev = t - Math.PI * 2;
                     }
                     else
                     {
-                        round_revs += next_angle - 2 * Math.PI - last_angle;
+                        temp_dev = t + Math.PI * 2;
                     }
                 }
                 else
                 {
-                    round_revs += next_angle - last_angle;
+                    temp_dev = t;
                 }
-               
-                last_angle = next_angle;
-                point_angle_offset.Add(round_revs);
+
+                last_angle = cur_angle;
+                point_angle_offset.Add(temp_dev);
 
             }
+            round_revs = 0;
+            foreach(double n in point_angle_offset)
+            {
+                round_revs += n;
+            }
+            if (round_revs > 0)
+                direction = 1;
+            else
+                direction = -1;
 
+            #region old method
+            //double angle1, angle3, angle5;
+            //angle1 = Math.Atan2(transferedPoints[0].y, transferedPoints[0].x);
+            //angle3 = Math.Atan2(transferedPoints[4].y, transferedPoints[4].x);
+            //angle5 = Math.Atan2(transferedPoints[8].y, transferedPoints[8].x);
+            //if ((angle5 - angle3) * (angle3 - angle1) < 0)
+            //{
+            //    //means the start point nearby the 180-degree
+            //    double abs13, abs35;
+            //    abs13 = Math.Abs(angle1 - angle3);
+            //    abs35 = Math.Abs(angle3 - angle5);
+            //    if (abs13 < abs35)
+            //    {
+            //        direction = angle3 > angle1 ? 1 : -1;
+            //    }
+            //    else
+            //    {
+            //        direction = angle5 > angle3 ? 1 : -1;
+            //    }
+            //}
+            //else
+            //{
+            //    //normal situation
+            //    direction = angle3 > angle1 ? 1 : -1;
+            //}
+            //round_revs = 0;
+            //point_angle_offset.Add(round_revs);
+            //double next_angle, last_angle;
+            //last_angle = angle1;
+            //for (int i = 1; i < point_no(); ++i)
+            //{
+            //    next_angle = Math.Atan2(transferedPoints[i].y, transferedPoints[i].x);
+            //    if (Math.Abs(next_angle - last_angle) > Math.PI)
+            //    {
+            //        if (direction == 1)
+            //        {
+            //            round_revs += next_angle + 2 * Math.PI - last_angle;
+            //        }
+            //        else
+            //        {
+            //            round_revs += next_angle - 2 * Math.PI - last_angle;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        round_revs += next_angle - last_angle;
+            //    }
+
+            //    last_angle = next_angle;
+            //    point_angle_offset.Add(round_revs);
+
+            //}
+            #endregion
 
         }
         public List<double> angle_commu
