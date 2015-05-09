@@ -57,14 +57,41 @@ namespace SPInterface
         }
         public Alignment(double i, double j, double k, double x = 0, double y = 0, double z = 0, string name = "feature_alignment")
         {
-            trans_matrix = new DenseMatrix(4, 4,
-            new double[]{
-                     k / Math.Sqrt ( 1-j*j ),      0.0,                    -i / Math.Sqrt ( 1-j*j )    ,   -x, 
-                     - j*i / Math.Sqrt ( 1-j*j ),  Math.Sqrt ( 1-j*j ),    - j*k / Math.Sqrt ( 1-j*j ) ,   -y, 
-                     i,                            j,                      k                           ,   -z,
+            DenseMatrix offset_matrix = new DenseMatrix
+                (4, 4,
+                    new double[]
+                    { 
+                        1, 0.0, 0 , -x,
+                        0, 1, 0 , -y,
+                        0, 0, 1 , -z,
+                        0, 0, 0 , 1 
+                    }
+                );
+            DenseMatrix rotate_matrix = null;
+
+            if (Math.Abs(Math.Abs(j) - 1) > 0.1)
+            {
+                rotate_matrix = new DenseMatrix(4, 4,
+                new double[]{
+                     k / Math.Sqrt ( 1-j*j ),      0.0,                    -i / Math.Sqrt ( 1-j*j )    ,   0, 
+                     - j*i / Math.Sqrt ( 1-j*j ),  Math.Sqrt ( 1-j*j ),    - j*k / Math.Sqrt ( 1-j*j ) ,   0, 
+                     i,                            j,                      k                           ,   0,
                     0,                           0,                      0                          ,   1
                 }
-                );
+                    );
+            }
+            else
+            {
+                rotate_matrix = new DenseMatrix(4,4,
+                    new double[]{
+                        j/Math.Sqrt(1-k*k),     i/Math.Sqrt(1-k*k)      ,   0.0,    0,
+                        - k*i/Math.Sqrt(1-k*k), -k*j/Math.Sqrt(1-k*k)   ,   Math.Sqrt(1-k*k),   0,
+                        i,                      j                       ,   k,                  0,
+                        0,                      0                       ,   0,                  1
+                    });
+            }
+            trans_matrix = offset_matrix * rotate_matrix;
+
         }
         public static DenseVector operator *(DenseVector a, Alignment b)
         {
@@ -91,7 +118,7 @@ namespace SPInterface
         public override string ToString()
         {
             string result;
-            result = Name+"\n";
+            result = Name + "\n";
             result += trans_matrix.ToString();
             return result;
         }
