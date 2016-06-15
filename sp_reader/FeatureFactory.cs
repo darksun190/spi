@@ -29,6 +29,10 @@ namespace SPInterface
                     return new Curve(f);
                 case FeatureType.Cone:
                     throw new Exception("didn't implement");
+                case FeatureType.Line:
+                    return new Line(f);
+                case FeatureType.SpacePoint:
+                    return new Point(f);
                 default:
                     throw new Exception("unkown type");
             }

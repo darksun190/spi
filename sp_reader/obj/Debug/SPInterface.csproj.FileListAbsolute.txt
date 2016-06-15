@@ -1,0 +1,18 @@
+C:\Users\zcxsun\Documents\VS GIT\specialProgram\sp_reader\sp_reader\bin\Debug\SPInterface.dll
+C:\Users\zcxsun\Documents\VS GIT\specialProgram\sp_reader\sp_reader\bin\Debug\SPInterface.pdb
+C:\Users\zcxsun\Documents\VS GIT\specialProgram\sp_reader\sp_reader\bin\Debug\MathNet.Numerics.dll
+C:\Users\zcxsun\Documents\VS GIT\specialProgram\sp_reader\sp_reader\bin\Debug\MathNet.Numerics.xml
+C:\Users\zcxsun\Documents\VS GIT\specialProgram\sp_reader\sp_reader\obj\Debug\SPInterface.dll
+C:\Users\zcxsun\Documents\VS GIT\specialProgram\sp_reader\sp_reader\obj\Debug\SPInterface.pdb
+C:\Users\zcxsun\Documents\VS GIT\specialProgram\sp_reader\sp_reader\obj\Debug\SPInterface.csprojResolveAssemblyReference.cache
+C:\Users\zcxsun\Documents\Visual Studio 2015\Projects\sp_reader\sp_reader\bin\Debug\SPInterface.dll
+C:\Users\zcxsun\Documents\Visual Studio 2015\Projects\sp_reader\sp_reader\bin\Debug\SPInterface.pdb
+C:\Users\zcxsun\Documents\Visual Studio 2015\Projects\sp_reader\sp_reader\obj\Debug\SPInterface.csprojResolveAssemblyReference.cache
+C:\Users\zcxsun\Documents\Visual Studio 2015\Projects\sp_reader\sp_reader\obj\Debug\SPInterface.dll
+C:\Users\zcxsun\Documents\Visual Studio 2015\Projects\sp_reader\sp_reader\obj\Debug\SPInterface.pdb
+C:\Zhao Jiaqing\New folder\sp_reader\sp_reader\sp_reader\bin\Debug\SPInterface.dll
+C:\Zhao Jiaqing\New folder\sp_reader\sp_reader\sp_reader\bin\Debug\SPInterface.pdb
+C:\Zhao Jiaqing\New folder\sp_reader\sp_reader\sp_reader\bin\Debug\MathNet.Numerics.dll
+C:\Zhao Jiaqing\New folder\sp_reader\sp_reader\sp_reader\bin\Debug\MathNet.Numerics.xml
+C:\Zhao Jiaqing\New folder\sp_reader\sp_reader\sp_reader\obj\Debug\SPInterface.dll
+C:\Zhao Jiaqing\New folder\sp_reader\sp_reader\sp_reader\obj\Debug\SPInterface.pdb

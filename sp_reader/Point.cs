@@ -12,7 +12,7 @@ namespace SPInterface
         DenseVector Vector;
         DenseVector Position;
         string points_file_name;
-      
+
 
         public Point(Feature fea)
         {
@@ -65,7 +65,7 @@ namespace SPInterface
             feature_alignment = new Alignment(Vector, Position, identifier + "_alignment");
         }
 
-       
+
         public double x
         {
             get
@@ -107,6 +107,10 @@ namespace SPInterface
             {
                 return Vector[2];
             }
+        }
+        public override string ToString()
+        {
+            return string.Format("{0} {1} {2} {3} {4} {5}", x, y, z, i, j, k);
         }
     }
 }

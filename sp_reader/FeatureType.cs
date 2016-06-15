@@ -14,6 +14,8 @@ namespace SPInterface
         Plane,
         Curve,
         Unknown,
-        Line
+        Line,
+        Line3d,
+        SpacePoint
     }
 }

@@ -7,7 +7,7 @@ using System.IO;
 
 namespace SPInterface
 {
-    class Plane : Feature
+    public class Plane : Feature
     {
         DenseVector Vector;
         DenseVector Position;
@@ -102,6 +102,21 @@ namespace SPInterface
             get
             {
                 return length * width;
+            }
+        }
+        public List<MeasPoint> transferedPoints
+        {
+            get
+            {
+                if (feature_alignment_points == null)
+                {
+                    feature_alignment_points = new List<MeasPoint>();
+                    foreach (MeasPoint point in Alignment_Points)
+                    {
+                        feature_alignment_points.Add(new MeasPoint(point, feature_alignment));
+                    }
+                }
+                return feature_alignment_points;
             }
         }
         public override List<double> Deviations

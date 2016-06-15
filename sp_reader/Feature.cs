@@ -15,8 +15,8 @@ namespace SPInterface
         protected Alignment feature_alignment;
   
         protected double form_error { get; set; }
-        protected double max_dev { get; set; }
-        protected double min_dev { get; set; }
+        protected virtual double max_dev { get; set; }
+        protected virtual double min_dev { get; set; }
         protected List<MeasPoint> feature_alignment_points;
         protected List<MeasPoint> measPoints;
         protected List<MeasPoint> measMaskedPoints;
@@ -66,14 +66,19 @@ namespace SPInterface
                     return FeatureType.Cylinder;
                 case "circle":
                     return FeatureType.Circle;
+                case "spacepoint":
                 case "point":
-                    return FeatureType.Plane;
+                    return FeatureType.Point;
                 case "curve":
                     return FeatureType.Curve;
                 case "plane":
                     return FeatureType.Plane;
                 case "cone":
                     return FeatureType.Cone;
+                case "line":
+                    return FeatureType.Line;
+                case "line3d":
+                    return FeatureType.Line3d;
                 default:
                     return FeatureType.Unknown;
             }

@@ -25,6 +25,20 @@ Line
 	Vector="-0.999999421 0.0 0.0010760608 0.0"/>
 </GeometryData>
 
+Line3d
+<?xml version="1.0" encoding="utf-8"?>
+<GeometryData>
+<Name>Special Program1</Name>
+<CoordinateSystem/>
+<Element 
+	GeoType="Line3d" 
+	Identifier="3d Line1" 
+	Length="386.44" 
+	Points="C:\Users\Public\Documents\Zeiss\CALYPSO\WISSEN\EXCHANGING\3d Line1_Points.txt" 
+	Position="0.0 -5.0 0.0 1.0" 
+	Vector="0.0 -1.0 0.0 0.0"/>
+</GeometryData>
+
 Circle
 <?xml version="1.0" encoding="utf-8"?>
 <GeometryData>

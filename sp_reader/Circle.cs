@@ -17,6 +17,22 @@ namespace SPInterface
         protected bool inside;
         List<double> point_angle_offset;
 
+        protected override double max_dev
+        {
+            get
+            {
+                return Deviations.Max();
+            }
+            
+        }
+        protected override double min_dev
+        {
+            get
+            {
+                return Deviations.Min();
+            }
+          
+        }
         //how much revolutions of the measurement
         double round_revs;
         public double round_nr
@@ -151,6 +167,7 @@ namespace SPInterface
                     measMaskedPoints.Last().seq = seq_nr++;
                 }
             }
+            
             feature_alignment = new Alignment(Vector, Position, identifier + "_alignment");
 
         }
@@ -172,6 +189,9 @@ namespace SPInterface
                 return feature_alignment_points;
             }
         }
+        /// <summary>
+        /// the point base on the alignment
+        /// </summary>
         public override List<MeasPoint> Alignment_Points
         {
             get

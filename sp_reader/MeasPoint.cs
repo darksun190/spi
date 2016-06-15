@@ -97,5 +97,18 @@ namespace SPInterface
             v = Vector[1];
             w = Vector[2];
         }
+        public override string ToString()
+        {
+            return string.Format("{0:F4} {1:F4} {2:F4} {3:F4} {4:F4} {5:F4}",
+                new object[]
+                {
+                    x,
+                    y,
+                    z,
+                    u,
+                    v,
+                    w
+                });
+        }
     }
 }

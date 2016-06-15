@@ -41,13 +41,6 @@ namespace SPInterface
                 .Select(n => Convert.ToDouble(n))
                 .ToArray();
 
-            //double[,] array_2d = new double[4, 4];
-
-            //int index = 0;
-            //for (int i = 0; i < 4; ++i)
-            //    for (int j = 0; j < 4; ++j)
-            //        array_2d[i,j] = array[index++];
-
             trans_matrix = new DenseMatrix(4, 4, array);
         }
         public Alignment(DenseVector vec, DenseVector pos, string name = "feature_alignment")

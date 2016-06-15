@@ -32,6 +32,7 @@ namespace SPInterface
             xmldoc.Load(xmlpath);
             XmlNode xmlnode = xmldoc.SelectSingleNode("GeometryData");
             XmlNodeList xmlnodelist = xmlnode.ChildNodes;
+            current_alignment = new Alignment();
             foreach (XmlNode node in xmlnodelist)
             {
                 string identify = node.Name;
@@ -45,15 +46,19 @@ namespace SPInterface
                 }
                 if (identify.Equals("Element"))
                 {
-                    Feature n_ele = new Feature(node);
-                    elements.Add(n_ele.ConvertType());
+                    try
+                    {
+                        Feature n_ele = new Feature(node);
+                        elements.Add(n_ele.ConvertType());
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Debug.WriteLine(e.Message);
+                    }
                 }
             }
 
-            if (current_alignment == null)
-                current_alignment = new Alignment();
-
-
+          
             string syspath = SPIconf.pathToSP + @"\SysParaToSpecialProgram.xml";
             XmlDocument sysxmldoc = new XmlDocument();
             sysxmldoc.Load(syspath);
