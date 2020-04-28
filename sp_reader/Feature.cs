@@ -26,7 +26,7 @@ namespace SPInterface
             private set;
         }
      
-        FeatureType getType(string type)
+        static FeatureType getType(string type)
         {
             switch (type.ToLower())
             {
