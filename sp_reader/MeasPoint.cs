@@ -66,8 +66,8 @@ namespace SPInterface
                 status = 0;
                 ProbeRadius = 0.0;
             }
-            Position = new DenseVector(new double[4] { x, y, z, 1 }) * SPI.current_alignment.Transpose();
-            Vector = new DenseVector(new double[4] { u, v, w, 0 }) * SPI.current_alignment.Transpose();
+            Position = new DenseVector(new double[4] { x, y, z, 1 }) * SPInterface.Current_Alignment.Transpose();
+            Vector = new DenseVector(new double[4] { u, v, w, 0 }) * SPInterface.Current_Alignment.Transpose();
 
             x = Position[0];
             y = Position[1];

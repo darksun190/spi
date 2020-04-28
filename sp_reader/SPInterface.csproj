@@ -64,8 +64,8 @@
     <Compile Include="Feature.cs" />
     <Compile Include="FeatureFactory.cs" />
     <Compile Include="FeatureType.cs" />
+    <Compile Include="IFeature.cs" />
     <Compile Include="Line.cs" />
-    <Compile Include="Path.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="CurvePara.cs" />
     <Compile Include="FullPoint.cs" />
@@ -73,7 +73,6 @@
     <Compile Include="NomPoint.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="SectionCircle.cs" />
-    <Compile Include="SPIconf.cs" />
     <Compile Include="SPInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

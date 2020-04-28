@@ -16,11 +16,11 @@ namespace SPInterface
 
         public Point(Feature fea)
         {
-            if (fea.geoType != FeatureType.Point)
+            if (fea.GeoType != FeatureType.Point)
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
-            this.identifier = fea.identifier;
-            this.geoType = fea.geoType;
+            this.Identifier = fea.Identifier;
+            this.geoType = fea.GeoType;
             //init Vector
             string vector_string = xml_paras["Vector"].Trim('\"');
             Vector = new DenseVector(
@@ -62,7 +62,7 @@ namespace SPInterface
                 }
             }
 
-            feature_alignment = new Alignment(Vector, Position, identifier + "_alignment");
+            feature_alignment = new Alignment(Vector, Position, Identifier + "_alignment");
         }
 
 

@@ -5,34 +5,90 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.IO;
+
 namespace SPInterface
 {
-    public static class SPI
+    /// <summary>
+    /// 调用的主Class，通过定义配置文件来初始化类
+    /// </summary>
+    public class SPInterface : IDisposable
     {
-        public static List<Feature> elements = new List<Feature>();
-        public static string CharacterName;
-        public static Dictionary<string, string> sys_dict = new Dictionary<string, string>();
-
-        public static XmlDocument xml_result;
-        static string xmloutpath;
-        public static Alignment current_alignment;
-        public static string getPathFromSpecialProgram()
+        #region Properties
+        /// <summary>
+        /// features which exported by CALYPSO
+        /// </summary>
+        public List<IFeature> Elements
         {
-            return SPIconf.pathFromSP;
-        }
-        public static string getPathToSpecialProgram()
-        {
-            return SPIconf.pathToSP;
+            get
+            {
+                return elements;
+            }
         }
 
-        static public void init()
+        private List<IFeature> elements = new List<IFeature>();
+        public string CharacterName
         {
-            string xmlpath = SPIconf.pathToSP + @"\ElementsToSpecialProgram.xml";
+            get; set;
+        }
+        /// <summary>
+        /// system parameters given by CALYPSO
+        /// </summary>
+        public Dictionary<string, string> SystemParameter
+        {
+            get
+            {
+                return sys_dict;
+            }
+        }
+        private Dictionary<string, string> sys_dict = new Dictionary<string, string>();
+        private XmlDocument xml_result;
+        static string XMLOutputPath
+        {
+            get; set;
+        }
+
+        public Alignment Current_Alignment
+        {
+            get; set;
+        }
+        SPInterfaceParameters sp_paras;
+        public string PathFromSpecialProgram
+        {
+            get
+            {
+                return sp_paras.PathFromSP;
+            }
+        }
+        public string PathToSpecialProgram
+        {
+            get
+            {
+                return sp_paras.PathToSP;
+            }
+        }
+        #endregion
+        /// <summary>
+        /// initialize the class by offering the configuration file path
+        /// </summary>
+        /// <param name="conf_path"> the path was defined by file "~\conf\configCFSpecialProgram.txt".
+        /// one line for each special program "Name, Exe path, conf path".
+        /// put the 3rd para here</param>
+        public SPInterface(string conf_path)
+        {
+            //get the main 3 parameters from the conf file
+            //these 3 paras was defined by special program developer
+            sp_paras = new SPInterfaceParameters(conf_path);
+
+            //the entry point file, which calypso give some information to SP, the path defined by sp developer
+            //filename was fixed by CALYPSO
+            string xmlpath = sp_paras.PathToSP + @"\ElementsToSpecialProgram.xml";
+
+            #region Load Name, Features & Alignment
             XmlDocument xmldoc = new XmlDocument();
             xmldoc.Load(xmlpath);
             XmlNode xmlnode = xmldoc.SelectSingleNode("GeometryData");
             XmlNodeList xmlnodelist = xmlnode.ChildNodes;
-            current_alignment = new Alignment();
+            Current_Alignment = new Alignment();
             foreach (XmlNode node in xmlnodelist)
             {
                 string identify = node.Name;
@@ -42,14 +98,14 @@ namespace SPInterface
                 }
                 if (identify.Equals("CoordinateSystem"))
                 {
-                    current_alignment = new Alignment(node);
+                    Current_Alignment = new Alignment(node);
                 }
                 if (identify.Equals("Element"))
                 {
                     try
                     {
-                        Feature n_ele = new Feature(node);
-                        elements.Add(n_ele.ConvertType());
+                        Feature element = new Feature(node);
+                        elements.Add(element);
                     }
                     catch (Exception e)
                     {
@@ -57,9 +113,10 @@ namespace SPInterface
                     }
                 }
             }
+            #endregion
 
-          
-            string syspath = SPIconf.pathToSP + @"\SysParaToSpecialProgram.xml";
+            #region Load CALYPSO parameters
+            string syspath = sp_paras.PathToSP + @"\SysParaToSpecialProgram.xml";
             XmlDocument sysxmldoc = new XmlDocument();
             sysxmldoc.Load(syspath);
             XmlNode sysxmlnode = sysxmldoc.SelectSingleNode("SystemParameters");
@@ -80,37 +137,27 @@ namespace SPInterface
                 }
 
             }
-            StreamWriter sw = new StreamWriter(SPIconf.pathFromSP + @"\DataFromSpecialProgram.txt");
+            #endregion
+
+            //write a file which CALYPSO check
+            StreamWriter sw = new StreamWriter(sp_paras.PathFromSP + @"\DataFromSpecialProgram.txt");
+            //the name is fixed everytime, CALYPSO read this file to get data from Special program
             sw.WriteLine("ResultsFromSpecialProgram.xml");
             sw.Close();
 
-            xmloutpath = SPIconf.pathFromSP + @"\ResultsFromSpecialProgram.xml";
+            //writing result
+            XMLOutputPath = sp_paras.PathFromSP + @"\ResultsFromSpecialProgram.xml";
 
-            System.IO.File.Delete(xmloutpath);
+
+            //create a empty xml result, if nothing happen.
+            System.IO.File.Delete(XMLOutputPath);
             xml_result = new XmlDocument();
             XmlElement rootElement = xml_result.CreateElement("GeometryData");
             xml_result.AppendChild(rootElement);
             XmlElement spname = xml_result.CreateElement("Name");
             spname.InnerText = CharacterName;
             rootElement.AppendChild(spname);
-            result_save();
 
-        }
-
-        /// <summary>
-        /// load all information from Calypso
-        /// </summary>
-        static SPI()
-        {
-
-        
-        }
-        /// <summary>
-        /// save current results to the file
-        /// </summary>
-        public static void result_save()
-        {
-            xml_result.Save(xmloutpath);
         }
         /// <summary>
         /// add one line to the result
@@ -123,7 +170,7 @@ namespace SPInterface
         /// <param name="nom"></param>
         /// <param name="ut"></param>
         /// <param name="lt"></param>
-        public static void addresult(string groupid, string typesymbol, string identifier, double act, string comment = "", double nom = 0, double ut = 0, double lt = 0)
+        public void addresult(string groupid, string typesymbol, string identifier, double act, string comment = "", double nom = 0, double ut = 0, double lt = 0)
         {
             XmlNode current_node = null;
             XmlNode rootnode = xml_result.SelectSingleNode("GeometryData");
@@ -155,6 +202,57 @@ namespace SPInterface
             item.SetAttribute("LowerTol", lt.ToString("G4"));
             item.SetAttribute("Comment", comment);
             current_node.AppendChild(item);
+        }
+        public void Dispose()
+        {
+            xml_result.Save(XMLOutputPath);
+        }
+        /// <summary>
+        /// 子类，保存SP的三个参数
+        /// </summary>
+        public class SPInterfaceParameters
+        {
+
+            public string PathFromSP
+            {
+                get;
+                private set;
+            }
+            public string PathToSP
+            {
+                get;
+                private set;
+            }
+            public int Timeout
+            {
+                get;
+                private set;
+            }
+            /// <summary>
+            /// the main interface with Calypso
+            /// </summary>
+            public SPInterfaceParameters(string para_path)
+            {
+                XmlDocument xmldoc = new XmlDocument();
+                xmldoc.Load(para_path);
+                XmlNode xmlnode = xmldoc.SelectSingleNode("ConfigFileTest");
+                XmlNodeList xmlnodelist = xmlnode.ChildNodes;
+                foreach (XmlNode node in xmlnodelist)
+                {
+                    if (node.Name.Equals("PathToSP", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        PathToSP = new DirectoryInfo(node.InnerText).FullName;
+                    }
+                    if (node.Name.Equals("PathFromSP", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        PathFromSP = new DirectoryInfo(node.InnerText).FullName;
+                    }
+                    if (node.Name.Equals("Timeout", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        Timeout = Convert.ToInt32(node.InnerText);
+                    }
+                }
+            }
         }
     }
 

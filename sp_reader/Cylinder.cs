@@ -15,11 +15,11 @@ namespace SPInterface
         public Cylinder(Feature fea)
         {
 
-            if (fea.geoType != FeatureType.Cylinder && fea.geoType != FeatureType.Circle)
+            if (fea.GeoType != FeatureType.Cylinder && fea.GeoType != FeatureType.Circle)
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
-            this.identifier = fea.identifier;
-            this.geoType = fea.geoType;
+            this.Identifier = fea.Identifier;
+            this.geoType = fea.GeoType;
             //get length, direction and radius
             //height = Convert.ToDouble(xml_paras["Height"]);
             radius = Convert.ToDouble(xml_paras["Radius"]);
@@ -66,7 +66,7 @@ namespace SPInterface
                 }
             }
 
-            feature_alignment = new Alignment(Vector, Position, identifier + "_alignment");
+            feature_alignment = new Alignment(Vector, Position, Identifier + "_alignment");
 
         }
         public override List<double> Deviations
@@ -76,8 +76,8 @@ namespace SPInterface
                 if (_devs == null)
                 {
                     double x0, y0, z0, i0, j0, k0;
-                    Vector vec_base = this.Vector * SPI.current_alignment.Transpose();
-                    Vector pos_base = this.Position * SPI.current_alignment.Transpose();
+                    Vector vec_base = this.Vector * SPInterface.Current_Alignment.Transpose();
+                    Vector pos_base = this.Position * SPInterface.Current_Alignment.Transpose();
                     x0 = pos_base[0];
                     y0 = pos_base[1];
                     z0 = pos_base[2];

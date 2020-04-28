@@ -15,7 +15,7 @@ namespace SPInterface
         }
         public static Feature createFeature(Feature f)
         {
-            switch (f.geoType)
+            switch (f.GeoType)
             {
                 case FeatureType.Circle:
                     return new Circle(f);

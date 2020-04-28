@@ -21,11 +21,11 @@ namespace SPInterface
 
         public Curve(Feature fea)
         {
-            if (fea.geoType != FeatureType.Curve)
+            if (fea.GeoType != FeatureType.Curve)
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
-            this.identifier = fea.identifier;
-            this.geoType = fea.geoType;
+            this.Identifier = fea.Identifier;
+            this.geoType = fea.GeoType;
 
             actPoints = new List<ActPoint>();
             actMaskedPoints = new List<ActPoint>();

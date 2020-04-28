@@ -25,8 +25,8 @@ namespace SPInterface
             status = Convert.ToInt32(result[7]);
             ProbeRadius = Convert.ToDouble(result[8]);
 
-            Position = new DenseVector(new double[4] { x, y, z, 1 }) * SPI.current_alignment;
-            Vector = new DenseVector(new double[4] { u, v, w, 0 }) * SPI.current_alignment;
+            Position = new DenseVector(new double[4] { x, y, z, 1 }) * SPInterface.Current_Alignment;
+            Vector = new DenseVector(new double[4] { u, v, w, 0 }) * SPInterface.Current_Alignment;
 
             x = Position[0];
             y = Position[1];
