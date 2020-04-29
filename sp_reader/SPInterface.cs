@@ -48,7 +48,7 @@ namespace SPInterface
             get; set;
         }
 
-        public Alignment Current_Alignment
+        public Alignment CurrentAlignment
         {
             get; set;
         }
@@ -74,8 +74,11 @@ namespace SPInterface
         /// <param name="conf_path"> the path was defined by file "~\conf\configCFSpecialProgram.txt".
         /// one line for each special program "Name, Exe path, conf path".
         /// put the 3rd para here</param>
-        public SPInterface(string conf_path)
+        /// <param name="working_directory"> home directory for this special program</param>
+        public SPInterface(string conf_path, string working_directory)
         {
+            Environment.CurrentDirectory = working_directory;
+
             //get the main 3 parameters from the conf file
             //these 3 paras was defined by special program developer
             sp_paras = new SPInterfaceParameters(conf_path);
@@ -89,7 +92,7 @@ namespace SPInterface
             xmldoc.Load(xmlpath);
             XmlNode xmlnode = xmldoc.SelectSingleNode("GeometryData");
             XmlNodeList xmlnodelist = xmlnode.ChildNodes;
-            Current_Alignment = new Alignment();
+            CurrentAlignment = new Alignment();
             foreach (XmlNode node in xmlnodelist)
             {
                 string identify = node.Name;
@@ -99,13 +102,13 @@ namespace SPInterface
                 }
                 if (identify.Equals("CoordinateSystem"))
                 {
-                    Current_Alignment = new Alignment(node);
+                    CurrentAlignment = new Alignment(node);
                 }
                 if (identify.Equals("Element"))
                 {
                     try
                     {
-                        Element element = new Element(node);
+                        Element element = new Element(node, CurrentAlignment);
                         elements.Add(element);
                     }
                     catch (Exception e)

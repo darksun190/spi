@@ -15,7 +15,7 @@ namespace SPInterface.Feature
     /// interface just a definition
     /// using this class for base function to implement all properties & function
     /// </summary>
-    class StandardFeature : IStandardFeature
+    public class StandardFeature : IStandardFeature
     {
         #region Properties
         public FeatureType.Type GeoType
@@ -36,7 +36,7 @@ namespace SPInterface.Feature
             get;
             private set;
         }
-     
+
         public DenseVector Position
         {
             get;
@@ -88,7 +88,7 @@ namespace SPInterface.Feature
         /// Deviation is the most important property
         /// need all sub class implement by itself.
         /// </summary>
-        virtual internal List<double> Deviations
+        virtual public List<double> Deviations
         {
             get;
             set;
@@ -121,21 +121,25 @@ namespace SPInterface.Feature
                 return Deviations.Min();
             }
         }
-        List<MeasPoint> RawPoints
+        List<FeatureMeasurePoint> RawPoints
         {
             get;
             set;
         }
-        List<MeasPoint> FeatureAlignmentPoints
+        public List<FeatureMeasurePoint> MeasurePoints
         {
-            get
-            {
-                List<MeasPoint> result = new List<MeasPoint>();
-                foreach (MeasPoint point in RawPoints)
-                {
-                    feature_alignment_points.Add(new MeasPoint(point, feature_alignment));
-                }
-            }
+            get;
+            set;
+        }
+        public List<FeatureMeasurePoint> FeatureAlignmentPoints
+        {
+            get;
+            set;
+        }
+        Alignment SPAlignment
+        {
+            get;
+            set;
         }
         public Alignment FeatureAlignment
         {
@@ -146,6 +150,8 @@ namespace SPInterface.Feature
 
         public StandardFeature(Element element)
         {
+            SPAlignment = element.CurrentAlignment;
+
             if (element.GeoType == FeatureType.Type.Curve)
                 throw (new Exception("geoType error"));
             this.Parameters = element.Parameters;
@@ -175,25 +181,38 @@ namespace SPInterface.Feature
             FileInfo meas_fi = new FileInfo(points_file_name);
             StreamReader meas_sr = new StreamReader(meas_fi.FullName);
             string line;
-            RawPoints = new List<MeasPoint>();
-            var measMaskedPoints = new List<MeasPoint>();
+            RawPoints = new List<FeatureMeasurePoint>();
+            var measMaskedPoints = new List<FeatureMeasurePoint>();
             int seq_nr = 1;
             while ((line = meas_sr.ReadLine()) != null)
             {
-                MeasPoint temp_Meas_point = new MeasPoint(line, false);
+                FeatureMeasurePoint temp_Meas_point = new FeatureMeasurePoint(line);
+                temp_Meas_point.seq = seq_nr++;
+
                 if (temp_Meas_point.status == 0)
                 {
                     RawPoints.Add(temp_Meas_point);
-                    RawPoints.Last().seq = seq_nr++;
                 }
                 else
                 {
                     measMaskedPoints.Add(temp_Meas_point);
-                    measMaskedPoints.Last().seq = seq_nr++;
                 }
             }
 
+            MeasurePoints = new List<FeatureMeasurePoint>();
+            foreach (FeatureMeasurePoint point in RawPoints)
+            {
+                MeasurePoints.Add(point * SPAlignment);
+            }
+
             FeatureAlignment = new Alignment(Vector, Position, Identifier + "_alignment");
+            
+            FeatureAlignmentPoints = new List<FeatureMeasurePoint>();
+            foreach (FeatureMeasurePoint point in MeasurePoints)
+            {
+                FeatureAlignmentPoints.Add(point * FeatureAlignment);
+            }
+
         }
     }
 }

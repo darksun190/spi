@@ -18,9 +18,17 @@ namespace SPInterface.Feature
         {
             return string.Format($"{X}, {Y}, {Z}, {I}, {J}, {K}");
         }
-        new List<double> Deviations
+        public override List<double> Deviations
         {
-
+            get
+            {
+                List<double> _devs = new List<double>();
+                foreach(var p in FeatureAlignmentPoints)
+                {
+                    _devs.Add(p.Z - Z);
+                }
+                return _devs;
+            }
         }
     }
 }

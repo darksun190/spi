@@ -127,8 +127,8 @@ namespace SPInterface
                 if (_devs == null)
                 {
                     double x0, y0, z0, i0, j0, k0;
-                    Vector vec_base = this.Vector * SPInterface.Current_Alignment.Transpose();
-                    Vector pos_base = this.Position * SPInterface.Current_Alignment.Transpose();
+                    Vector vec_base = this.Vector * SPInterface.CurrentAlignment.Transpose();
+                    Vector pos_base = this.Position * SPInterface.CurrentAlignment.Transpose();
                     x0 = pos_base[0];
                     y0 = pos_base[1];
                     z0 = pos_base[2];

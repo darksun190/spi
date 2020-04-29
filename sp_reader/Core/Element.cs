@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using MathNet.Numerics.LinearAlgebra.Double;
+using SPInterface.Feature;
 
 namespace SPInterface.Core
 {
@@ -30,11 +31,16 @@ namespace SPInterface.Core
             get;
             private set;
         }
-     
- 
-        internal Element(XmlNode node)
+        
+        public Alignment CurrentAlignment
         {
-            rawText = node.InnerText;
+            get;
+            private set;
+        }
+ 
+        internal Element(XmlNode node, Alignment alignment)
+        {
+            rawText = node.OuterXml;
             GeoType = FeatureType.getType(node.Attributes["GeoType"].Value);
             Identifier = node.Attributes["Identifier"].Value;
             Parameters = new Dictionary<string, string>();
@@ -42,6 +48,7 @@ namespace SPInterface.Core
             {
                 Parameters.Add(xmlatt.Name, xmlatt.Value);
             }
+            CurrentAlignment = alignment;
         }
 
     }

@@ -55,24 +55,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RawPoint\ActPoint.cs" />
-    <Compile Include="Core\Alignment.cs" />
     <Compile Include="Feature\Circle.cs" />
-    <Compile Include="Feature\CircleSection.cs" />
-    <Compile Include="Feature\Curve.cs" />
-    <Compile Include="Feature\Cylinder.cs" />
+    <Compile Include="Core\Alignment.cs" />
     <Compile Include="Core\Element.cs" />
-    <Compile Include="Core\FeatureFactory.cs" />
     <Compile Include="Feature\FeatureType.cs" />
     <Compile Include="Feature\IStandardFeature.cs" />
-    <Compile Include="Feature\Line.cs" />
-    <Compile Include="Feature\Plane.cs" />
-    <Compile Include="Feature\CurvePara.cs" />
-    <Compile Include="RawPoint\FullPoint.cs" />
-    <Compile Include="RawPoint\MeasPoint.cs" />
-    <Compile Include="RawPoint\NomPoint.cs" />
+    <Compile Include="RawPoint\FeatureMeasurePoint.cs" />
     <Compile Include="Feature\Point.cs" />
-    <Compile Include="Feature\SectionCircle.cs" />
     <Compile Include="SPInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Feature\StandardFeature.cs" />

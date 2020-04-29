@@ -9,7 +9,7 @@ namespace SPInterface.RawPoint
 {
     public class FullPoint
     {
-        public FullPoint(NomPoint nom, ActPoint act)
+        public FullPoint(NomPoint nom, CurveActualPoint act)
         {
             if (nom.seq != act.seq)
             {

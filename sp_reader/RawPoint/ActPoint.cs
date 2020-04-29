@@ -8,10 +8,10 @@ using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace SPInterface.RawPoint
 {
-    public class ActPoint
+    public class CurveActualPoint
     {
       
-        public ActPoint(string buf)
+        public CurveActualPoint(string buf)
         {
             string pattern = @"\s+";
             string[] result = Regex.Split(buf, pattern);
@@ -25,8 +25,8 @@ namespace SPInterface.RawPoint
             status = Convert.ToInt32(result[7]);
             ProbeRadius = Convert.ToDouble(result[8]);
 
-            Position = new DenseVector(new double[4] { x, y, z, 1 }) * SPInterface.Current_Alignment;
-            Vector = new DenseVector(new double[4] { u, v, w, 0 }) * SPInterface.Current_Alignment;
+            Position = new DenseVector(new double[4] { x, y, z, 1 }) * SPInterface.CurrentAlignment;
+            Vector = new DenseVector(new double[4] { u, v, w, 0 }) * SPInterface.CurrentAlignment;
 
             x = Position[0];
             y = Position[1];
@@ -42,7 +42,7 @@ namespace SPInterface.RawPoint
         public double u, v, w;
         public double ProbeRadius;
         public int seq, status;
-        public ActPoint(ActPoint old, Alignment fea_align)
+        public CurveActualPoint(CurveActualPoint old, Alignment fea_align)
         {
             seq = old.seq;
             status = old.status;
