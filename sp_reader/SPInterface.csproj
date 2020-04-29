@@ -58,9 +58,11 @@
     <Compile Include="Feature\Circle.cs" />
     <Compile Include="Core\Alignment.cs" />
     <Compile Include="Core\Element.cs" />
+    <Compile Include="Feature\Cylinder.cs" />
     <Compile Include="Feature\FeatureType.cs" />
     <Compile Include="Feature\IStandardFeature.cs" />
     <Compile Include="Feature\Line.cs" />
+    <Compile Include="Feature\Plane.cs" />
     <Compile Include="RawPoint\FeatureMeasurePoint.cs" />
     <Compile Include="Feature\Point.cs" />
     <Compile Include="SPInterface.cs" />

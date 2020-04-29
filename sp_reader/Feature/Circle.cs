@@ -38,10 +38,10 @@ namespace SPInterface
             {
                 List<double> _devs = new List<double>();
 
-                foreach (var temp in FeatureAlignmentPoints)
+                foreach (var p in FeatureAlignmentPoints)
                 {
 
-                    _devs.Add(Math.Sqrt(temp.X * temp.X + temp.Y * temp.Y) - Radius);
+                    _devs.Add(Math.Sqrt(p.X * p.X + p.Y * p.Y) - Radius);
                 }
                 return _devs;
             }
