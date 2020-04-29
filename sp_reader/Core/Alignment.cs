@@ -6,8 +6,12 @@ using MathNet.Numerics.LinearAlgebra.Double;
 using System.IO;
 using System.Xml;
 
-namespace SPInterface
+namespace SPInterface.Core
 {
+    /*
+     * CALYPSO transfer a 4*4 matrix as alignment
+     * the measure points of features are NOT based on this alignment but base alignment
+     */
     public class Alignment
     {
         private DenseMatrix trans_matrix;

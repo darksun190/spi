@@ -55,27 +55,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActPoint.cs" />
-    <Compile Include="Alignment.cs" />
-    <Compile Include="Circle.cs" />
-    <Compile Include="CircleSection.cs" />
-    <Compile Include="Curve.cs" />
-    <Compile Include="Cylinder.cs" />
-    <Compile Include="Feature.cs" />
-    <Compile Include="FeatureFactory.cs" />
-    <Compile Include="FeatureType.cs" />
-    <Compile Include="IFeature.cs" />
-    <Compile Include="IStandardFeature.cs" />
-    <Compile Include="Line.cs" />
-    <Compile Include="Plane.cs" />
-    <Compile Include="CurvePara.cs" />
-    <Compile Include="FullPoint.cs" />
-    <Compile Include="MeasPoint.cs" />
-    <Compile Include="NomPoint.cs" />
-    <Compile Include="Point.cs" />
-    <Compile Include="SectionCircle.cs" />
+    <Compile Include="RawPoint\ActPoint.cs" />
+    <Compile Include="Core\Alignment.cs" />
+    <Compile Include="Feature\Circle.cs" />
+    <Compile Include="Feature\CircleSection.cs" />
+    <Compile Include="Feature\Curve.cs" />
+    <Compile Include="Feature\Cylinder.cs" />
+    <Compile Include="Core\Element.cs" />
+    <Compile Include="Core\FeatureFactory.cs" />
+    <Compile Include="Feature\FeatureType.cs" />
+    <Compile Include="Feature\IStandardFeature.cs" />
+    <Compile Include="Feature\Line.cs" />
+    <Compile Include="Feature\Plane.cs" />
+    <Compile Include="Feature\CurvePara.cs" />
+    <Compile Include="RawPoint\FullPoint.cs" />
+    <Compile Include="RawPoint\MeasPoint.cs" />
+    <Compile Include="RawPoint\NomPoint.cs" />
+    <Compile Include="Feature\Point.cs" />
+    <Compile Include="Feature\SectionCircle.cs" />
     <Compile Include="SPInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Feature\StandardFeature.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="general_format.txt" />

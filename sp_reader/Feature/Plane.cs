@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using MathNet.Numerics.LinearAlgebra.Double;
 using System.IO;
+using SPInterface;
 
 namespace SPInterface
 {
-    public class Plane : Feature
+    public class Plane : Element
     {
         DenseVector Vector;
         DenseVector Position;
         string points_file_name;
         double length, width;
 
-        public Plane(Feature fea)
+        public Plane(Element fea)
         {
             if (fea.GeoType != FeatureType.Plane)
                 throw (new Exception("geoType error"));

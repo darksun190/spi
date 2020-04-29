@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace SPInterface
 {
-    public class Curve : Feature
+    public class Curve : Element
     {
         public readonly string fileNomPoints;
         public readonly string fileMeasPoints;
@@ -19,7 +19,7 @@ namespace SPInterface
         List<ActPoint> actMaskedPoints;
         CurvePara curve_paras;
 
-        public Curve(Feature fea)
+        public Curve(Element fea)
         {
             if (fea.GeoType != FeatureType.Curve)
                 throw (new Exception("geoType error"));

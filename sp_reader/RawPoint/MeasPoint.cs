@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using MathNet.Numerics.LinearAlgebra.Double;
+using SPInterface.Core;
 
-namespace SPInterface
+namespace SPInterface.RawPoint
 {
     public class MeasPoint
     {

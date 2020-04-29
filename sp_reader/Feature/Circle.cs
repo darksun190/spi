@@ -7,7 +7,7 @@ using System.IO;
 
 namespace SPInterface
 {
-    public class Circle : Feature
+    public class Circle : Element
     {
         protected DenseVector Vector;
         protected DenseVector Position;
@@ -115,7 +115,7 @@ namespace SPInterface
         {
         }
 
-        public Circle(Feature fea)
+        public Circle(Element fea)
         {
             if (fea.GeoType != FeatureType.Circle && fea.GeoType != FeatureType.Cylinder)
                 throw (new Exception("geoType error"));

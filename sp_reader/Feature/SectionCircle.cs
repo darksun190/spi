@@ -13,7 +13,7 @@ namespace SPInterface
         List <CircleSection> _sections;
         List<CircleSection> _merge_sections;
 
-        public SectionCircle(Feature fea)
+        public SectionCircle(Element fea)
             : base(fea)
         {
            

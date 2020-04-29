@@ -5,25 +5,25 @@ using System.Text;
 using MathNet.Numerics.LinearAlgebra.Double;
 using System.IO;
 
+
 namespace SPInterface
 {
-    public class Cylinder : Circle
+    public class Line : Element
     {
+        DenseVector Vector;
+        DenseVector Position;
+        string points_file_name;
+        double length;
 
-        double height;
-        public Cylinder() { }
-        public Cylinder(Feature fea)
+        public Line(Element fea)
         {
-
-            if (fea.GeoType != FeatureType.Cylinder && fea.GeoType != FeatureType.Circle)
+            if (fea.GeoType != FeatureType.Line)
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
             this.Identifier = fea.Identifier;
             this.geoType = fea.GeoType;
-            //get length, direction and radius
-            //height = Convert.ToDouble(xml_paras["Height"]);
-            radius = Convert.ToDouble(xml_paras["Radius"]);
-            inside = Convert.ToBoolean(xml_paras["InverseOrientation"]);
+            //get length and width
+            length = Convert.ToDouble(xml_paras["Length"]);
 
             //init Vector
             string vector_string = xml_paras["Vector"].Trim('\"');
@@ -69,6 +69,62 @@ namespace SPInterface
             feature_alignment = new Alignment(Vector, Position, Identifier + "_alignment");
 
         }
+        public override List<MeasPoint> Alignment_Points
+        {
+            get
+            {
+                return measPoints;
+            }
+        }
+        public double i
+        {
+            get
+            {
+                return Vector[0];
+            }
+        }
+        public double j
+        {
+            get
+            {
+                return Vector[1];
+            }
+        }
+        public double k
+        {
+            get
+            {
+                return Vector[2];
+            }
+        }
+        public double x
+        {
+            get
+            {
+                return Position[0];
+            }
+        }
+        public double y
+        {
+            get
+            {
+                return Position[1];
+            }
+        }
+        public double z
+        {
+            get
+            {
+                return Position[2];
+            }
+        }
+        public double Length
+        {
+            get
+            {
+                return length;
+            }
+        }
         public override List<double> Deviations
         {
             get
@@ -87,10 +143,7 @@ namespace SPInterface
                     _devs = new List<double>();
                     foreach (var temp in measPoints)
                     {
-                        double u = k0 * (temp.y - y0) - j0 * (temp.z - z0);
-                        double v = i0 * (temp.z - z0) - k0 * (temp.x - x0);
-                        double w = j0 * (temp.x - x0) - i0 * (temp.y - y0);
-                        _devs.Add(Math.Sqrt(u * u + v * v + w * w) / Math.Sqrt(i0 * i0 + j0 * j0 + k0 * k0)-radius);
+                        _devs.Add(i0 * (temp.x - x0) + j0 * (temp.y - y0) + k0 * (temp.z - z0));
                     }
                 }
                 return _devs;

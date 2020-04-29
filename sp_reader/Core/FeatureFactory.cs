@@ -8,12 +8,12 @@ namespace SPInterface
 {
     public static class FeatureFactory
     {
-        public static Feature createFeature(XmlNode node)
+        public static Element createFeature(XmlNode node)
         {
-            Feature f = new Feature(node);
+            Element f = new Element(node);
             return createFeature(f);
         }
-        public static Feature createFeature(Feature f)
+        public static Element createFeature(Element f)
         {
             switch (f.GeoType)
             {

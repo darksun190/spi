@@ -7,20 +7,24 @@ using System.IO;
 
 namespace SPInterface
 {
-    class Point : Feature
+    public class Cylinder : Circle
     {
-        DenseVector Vector;
-        DenseVector Position;
-        string points_file_name;
 
-
-        public Point(Feature fea)
+        double height;
+        public Cylinder() { }
+        public Cylinder(Element fea)
         {
-            if (fea.GeoType != FeatureType.Point)
+
+            if (fea.GeoType != FeatureType.Cylinder && fea.GeoType != FeatureType.Circle)
                 throw (new Exception("geoType error"));
             this.xml_paras = fea.xml_paras;
             this.Identifier = fea.Identifier;
             this.geoType = fea.GeoType;
+            //get length, direction and radius
+            //height = Convert.ToDouble(xml_paras["Height"]);
+            radius = Convert.ToDouble(xml_paras["Radius"]);
+            inside = Convert.ToBoolean(xml_paras["InverseOrientation"]);
+
             //init Vector
             string vector_string = xml_paras["Vector"].Trim('\"');
             Vector = new DenseVector(
@@ -63,54 +67,34 @@ namespace SPInterface
             }
 
             feature_alignment = new Alignment(Vector, Position, Identifier + "_alignment");
-        }
 
-
-        public double x
+        }
+        public override List<double> Deviations
         {
             get
             {
-                return Position[0];
+                if (_devs == null)
+                {
+                    double x0, y0, z0, i0, j0, k0;
+                    Vector vec_base = this.Vector * SPInterface.Current_Alignment.Transpose();
+                    Vector pos_base = this.Position * SPInterface.Current_Alignment.Transpose();
+                    x0 = pos_base[0];
+                    y0 = pos_base[1];
+                    z0 = pos_base[2];
+                    i0 = vec_base[0];
+                    j0 = vec_base[1];
+                    k0 = vec_base[2];
+                    _devs = new List<double>();
+                    foreach (var temp in measPoints)
+                    {
+                        double u = k0 * (temp.y - y0) - j0 * (temp.z - z0);
+                        double v = i0 * (temp.z - z0) - k0 * (temp.x - x0);
+                        double w = j0 * (temp.x - x0) - i0 * (temp.y - y0);
+                        _devs.Add(Math.Sqrt(u * u + v * v + w * w) / Math.Sqrt(i0 * i0 + j0 * j0 + k0 * k0)-radius);
+                    }
+                }
+                return _devs;
             }
-        }
-        public double y
-        {
-            get
-            {
-                return Position[1];
-            }
-        }
-        public double z
-        {
-            get
-            {
-                return Position[2];
-            }
-        }
-        public double i
-        {
-            get
-            {
-                return Vector[0];
-            }
-        }
-        public double j
-        {
-            get
-            {
-                return Vector[1];
-            }
-        }
-        public double k
-        {
-            get
-            {
-                return Vector[2];
-            }
-        }
-        public override string ToString()
-        {
-            return string.Format("{0} {1} {2} {3} {4} {5}", x, y, z, i, j, k);
         }
     }
 }

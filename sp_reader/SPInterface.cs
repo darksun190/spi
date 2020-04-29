@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.IO;
+using SPInterface.Core;
 
 namespace SPInterface
 {
@@ -17,7 +18,7 @@ namespace SPInterface
         /// <summary>
         /// features which exported by CALYPSO
         /// </summary>
-        public List<IFeature> Elements
+        public List<Element> Elements
         {
             get
             {
@@ -25,7 +26,7 @@ namespace SPInterface
             }
         }
 
-        private List<IFeature> elements = new List<IFeature>();
+        private List<Element> elements = new List<Element>();
         public string CharacterName
         {
             get; set;
@@ -104,7 +105,7 @@ namespace SPInterface
                 {
                     try
                     {
-                        Feature element = new Feature(node);
+                        Element element = new Element(node);
                         elements.Add(element);
                     }
                     catch (Exception e)
