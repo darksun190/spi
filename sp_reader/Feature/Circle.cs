@@ -11,7 +11,6 @@ namespace SPInterface
 {
     public class Circle : StandardFeature
     {
-        protected double radius;
         public double Radius
         {
             get;
@@ -19,7 +18,8 @@ namespace SPInterface
         }
         bool Inside
         {
-            get; set;
+            get;
+            set;
         }
 
         public Circle(Element element)
@@ -28,7 +28,7 @@ namespace SPInterface
             if (element.GeoType != FeatureType.Type.Circle && element.GeoType != FeatureType.Type.Cylinder)
                 throw (new Exception("geoType error"));
 
-            radius = Convert.ToDouble(Parameters["Radius"]);
+            Radius = Convert.ToDouble(Parameters["Radius"]);
             Inside = Convert.ToBoolean(Parameters["InverseOrientation"]);
         }
 
@@ -41,7 +41,7 @@ namespace SPInterface
                 foreach (var temp in FeatureAlignmentPoints)
                 {
 
-                    _devs.Add(Math.Sqrt(temp.X * temp.X + temp.Y * temp.Y) - radius);
+                    _devs.Add(Math.Sqrt(temp.X * temp.X + temp.Y * temp.Y) - Radius);
                 }
                 return _devs;
             }
