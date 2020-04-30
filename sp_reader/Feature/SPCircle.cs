@@ -4,32 +4,32 @@ using System.Linq;
 using System.Text;
 using MathNet.Numerics.LinearAlgebra.Double;
 using System.IO;
+using SPInterface.Feature;
 using SPInterface.Core;
 
 namespace SPInterface.Feature
 {
-    public class Plane : StandardFeature
+    public class SPCircle : SPStandardFeature
     {
-
-        public double Length { get; set; }
-        public double Width { get; set; }
-        public Plane(Element element)
-            : base(element)
+        public double Radius
         {
-            if (element.GeoType != FeatureType.Type.Plane)
-                throw (new Exception("geoType error"));
-
-            Length = Convert.ToDouble(Parameters["Length"]);
-            Width = Convert.ToDouble(Parameters["Width"]);
-
+            get;
+            private set;
+        }
+        bool Inside
+        {
+            get;
+            set;
         }
 
-        public double area
+        public SPCircle(Element element)
+            : base(element)
         {
-            get
-            {
-                return Length * Width;
-            }
+            if (element.GeoType != FeatureType.Type.Circle && element.GeoType != FeatureType.Type.Cylinder)
+                throw (new Exception("geoType error"));
+
+            Radius = Convert.ToDouble(Parameters["Radius"]);
+            Inside = Convert.ToBoolean(Parameters["InverseOrientation"]);
         }
 
         public override List<double> Deviations
@@ -37,14 +37,16 @@ namespace SPInterface.Feature
             get
             {
                 List<double> _devs = new List<double>();
+
                 foreach (var p in FeatureAlignmentPoints)
                 {
-                    _devs.Add(p.Z);
+
+                    _devs.Add(Math.Sqrt(p.X * p.X + p.Y * p.Y) - Radius);
                 }
                 return _devs;
             }
         }
 
-
+     
     }
 }

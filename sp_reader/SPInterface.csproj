@@ -55,19 +55,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Feature\Circle.cs" />
+    <Compile Include="Feature\SPCircle.cs" />
     <Compile Include="Core\Alignment.cs" />
     <Compile Include="Core\Element.cs" />
-    <Compile Include="Feature\Cylinder.cs" />
+    <Compile Include="Feature\SPCylinder.cs" />
     <Compile Include="Feature\FeatureType.cs" />
-    <Compile Include="Feature\IStandardFeature.cs" />
-    <Compile Include="Feature\Line.cs" />
-    <Compile Include="Feature\Plane.cs" />
+    <Compile Include="Feature\ISPStandardFeature.cs" />
+    <Compile Include="Feature\SPLine.cs" />
+    <Compile Include="Feature\SPPlane.cs" />
+    <Compile Include="Function\Outlier.cs" />
     <Compile Include="RawPoint\FeatureMeasurePoint.cs" />
-    <Compile Include="Feature\Point.cs" />
+    <Compile Include="Feature\SPPoint.cs" />
     <Compile Include="SPInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Feature\StandardFeature.cs" />
+    <Compile Include="Feature\SPStandardFeature.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="general_format.txt" />

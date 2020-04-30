@@ -15,7 +15,7 @@ namespace SPInterface.Feature
     /// interface just a definition
     /// using this class for base function to implement all properties & function
     /// </summary>
-    public class StandardFeature : IStandardFeature
+    public class SPStandardFeature : ISPStandardFeature
     {
         #region Properties
         public FeatureType.Type GeoType
@@ -148,7 +148,7 @@ namespace SPInterface.Feature
         }
         #endregion
 
-        public StandardFeature(Element element)
+        public SPStandardFeature(Element element)
         {
             SPAlignment = element.CurrentAlignment;
 

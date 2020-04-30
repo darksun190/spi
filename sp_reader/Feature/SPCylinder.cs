@@ -8,11 +8,11 @@ using SPInterface.Core;
 
 namespace SPInterface.Feature
 {
-    public class Cylinder : Circle
+    public class SPCylinder : SPCircle
     {
 
         public double Height { get; set; }
-        public Cylinder(Element element)
+        public SPCylinder(Element element)
             :base(element)
         {
 

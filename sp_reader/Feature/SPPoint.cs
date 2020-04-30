@@ -8,38 +8,27 @@ using SPInterface.Core;
 
 namespace SPInterface.Feature
 {
-    public class Line : StandardFeature
+    class SPPoint : SPStandardFeature
     {
-
-        public double Length
+        public SPPoint(Element element):
+            base(element)
         {
-            get;
-            private set;
         }
-        public Line(Element element)
-            : base(element)
+        public override string ToString()
         {
-            if (element.GeoType != FeatureType.Type.Line)
-                throw (new Exception("geoType error"));
-
-            Length = Convert.ToDouble(Parameters["Length"]);
+            return string.Format($"{X}, {Y}, {Z}, {I}, {J}, {K}");
         }
-
-
         public override List<double> Deviations
         {
             get
             {
                 List<double> _devs = new List<double>();
-
-               
-                foreach (var p in FeatureAlignmentPoints)
+                foreach(var p in FeatureAlignmentPoints)
                 {
-                    _devs.Add(p.Z);
+                    _devs.Add(p.Z - Z);
                 }
                 return _devs;
             }
         }
-
     }
 }

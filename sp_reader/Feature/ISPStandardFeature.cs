@@ -11,7 +11,7 @@ namespace SPInterface.Feature
     /// <summary>
     /// interface for standard feature exclude curve
     /// </summary>
-    interface IStandardFeature
+    interface ISPStandardFeature
     {
         DenseVector Vector
         {
