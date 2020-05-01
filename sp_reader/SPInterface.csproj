@@ -41,9 +41,6 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MathNet.Filtering, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MathNet.Filtering.0.6.0\lib\net40\MathNet.Filtering.dll</HintPath>
-    </Reference>
     <Reference Include="MathNet.Numerics, Version=4.9.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.4.9.1\lib\net40\MathNet.Numerics.dll</HintPath>
     </Reference>
@@ -66,7 +63,9 @@
     <Compile Include="Feature\ISPStandardFeature.cs" />
     <Compile Include="Feature\SPLine.cs" />
     <Compile Include="Feature\SPPlane.cs" />
-    <Compile Include="Function\Outlier.cs" />
+    <Compile Include="Evaluation\Filter.cs" />
+    <Compile Include="Evaluation\FilterType.cs" />
+    <Compile Include="Evaluation\Outlier.cs" />
     <Compile Include="RawPoint\FeatureMeasurePoint.cs" />
     <Compile Include="Feature\SPPoint.cs" />
     <Compile Include="SPInterface.cs" />

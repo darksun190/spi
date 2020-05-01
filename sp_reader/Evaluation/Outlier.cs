@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using MathNet.Numerics.Statistics;
 
-namespace SPInterface.Function
+namespace SPInterface.Evaluation
 {
     public class Outlier<T>
     {
